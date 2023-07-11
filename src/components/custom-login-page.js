@@ -67,7 +67,7 @@ export default function CustomLoginPage() {
           variant="standard"
           size="small"
           width
-          sx={{ width: "75%", marginTop: "5%", marginBottom: "5%" }}
+          sx={{ width: "75%", marginTop: "10%", marginBottom: "5%" }}
           onChange={(e) => handleInputChange(e)}
         />
 
