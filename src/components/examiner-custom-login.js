@@ -25,7 +25,7 @@ function ExaminerCustomLoginComponent() {
         sx={{
           height: "431px",
           width: "447px",
-          padding: "50px 51px 102px 51px",
+          padding: "50px 51px 51px 51px",
           borderRadius: "10px",
         }}
       >
@@ -42,7 +42,6 @@ function ExaminerCustomLoginComponent() {
           label="Password"
           variant="standard"
           type={showPassword ? "text" : "password"}
-          //eye icon
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -66,7 +65,7 @@ function ExaminerCustomLoginComponent() {
         <Button
           variant="contained"
           sx={{
-            margin: "80px  0 10px 0",
+            margin: "80px  0 20px 0",
             width: "344px",
             height: "41px",
           }}
