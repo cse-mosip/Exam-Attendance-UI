@@ -6,6 +6,7 @@ import {
   InputAdornment,
   IconButton,
   Button,
+  Link,
 } from "@mui/material";
 import React from "react";
 
@@ -65,13 +66,23 @@ function ExaminerCustomLoginComponent() {
         <Button
           variant="contained"
           sx={{
-            marginTop: "100px",
+            margin: "80px  0 10px 0",
             width: "344px",
             height: "41px",
           }}
         >
           SUBMIT
         </Button>
+        <Box sx={{ textAlign: "center" }}>
+          <Link
+            sx={{
+              color: "#000000",
+              textDecoration: "underline",
+            }}
+          >
+            USE BIO-METRIC LOGIN INSTEAD
+          </Link>
+        </Box>
       </Paper>
     </Box>
   );
