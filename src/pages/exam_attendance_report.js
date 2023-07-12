@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ExamAttendanceTable from '../components/exam_attendance_table';
@@ -43,18 +42,6 @@ function getPresentCount() {
 }
 
 const Report = () => {
-    // not working now without backend
-    // const [data, setData] = useState(null);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await fetch('attendance/exams/report')
-    //         const json = await response.json;
-    //         setData(json);
-    //     }
-    //     fetchData()
-    // }, [])
-
   return (
     <Box>
         <Typography variant="h1">Attendance Monitoring</Typography>

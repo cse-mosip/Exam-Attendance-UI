@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,7 +12,7 @@ const rowperpage = 10;
 
 const ExamAttendanceTable = (props) => {
     const rows = props.data;
-    const [page, setpage] = React.useState(0);
+    const [page, setpage] = useState(0);
   
     function handleChangePage(event, newpage) {
         setpage(newpage);
