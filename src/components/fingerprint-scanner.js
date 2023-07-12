@@ -11,7 +11,7 @@ const  FingerprintScanner = ({isStudent, setIsBioLogin}) => {
     <img src={FingerprintImg} alt="fingerprint image" style={{margin:"10%"
 }}/>
     {isStudent && <Button variant="contained" color="error">STOP ATTENDING</Button>}
-    <Button onClick={setIsBioLogin(false)} sx={{textDecoration:"underline", color:"grey"}} >Use {isStudent ? "Index":"Password"} instead</Button>
+    <Button onClick={setIsBioLogin} sx={{textDecoration:"underline", color:"grey"}} >Use {isStudent ? "Index":"Password"} instead</Button>
 
 </Box>
 

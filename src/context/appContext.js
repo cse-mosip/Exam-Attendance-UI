@@ -10,14 +10,14 @@ import {
 
 import reducer from './reducer';
 
-const module = localStorage.getItem('module')
+const modules = localStorage.getItem('modules')
 const token = localStorage.getItem('token')
 
 const initialState = {
     showAlert: false,
     alertText: '',
     alertType: '',
-    module: module? JSON.parse(module): null,
+    modules: modules? JSON.parse(modules): null,
     token: token,
 }
 
@@ -49,13 +49,13 @@ const AppProvider = ({children}) => {
     //     return Promise.reject(error)
     // })
 
-    const addModulesToLocalStorage = ({ module, token }) => {
-        localStorage.setItem('module', JSON.stringify(module))
+    const addModulesToLocalStorage = ({ modules, token }) => {
+        localStorage.setItem('modules', JSON.stringify(modules))
         localStorage.setItem('token', token)
     }
     
     const removeModulesFromLocalStorage = () => {
-        localStorage.removeItem('module')
+        localStorage.removeItem('modules')
         localStorage.removeItem('token')
     }
 
@@ -65,17 +65,17 @@ const AppProvider = ({children}) => {
         try {
             const url = withEmail ? '/attendance/exams/verifyEmail/examiner' : '/attendance/exams/verify/examiner'
             const { data } = await axios.post(url, logInData)
-            const { module, token, verification_success} = data
+            const { modules, token, verification_success} = data
             if(verification_success){
                 dispatch({ type: LOGIN_EXAMINER_SUCCESS, payload: {
-                        module,
+                        modules,
                         token
                     } })
             }
 
             // local storage
             addModulesToLocalStorage({
-                module,
+                modules,
                 token
             })
         } catch (error) {
