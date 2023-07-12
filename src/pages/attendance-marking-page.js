@@ -7,8 +7,15 @@ import CustomLoginPage from "./custom-login-page";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import FingerprintScanner from "../components/fingerprint-scanner";
 
 export default function AttendanceMarkingPage() {
+
+  const [flipped, setFlipped] = useState(false);
+
+  const handleFlip = () => {
+    setFlipped(!flipped);
+  };
 
   
   return (
@@ -18,12 +25,12 @@ export default function AttendanceMarkingPage() {
       </Typography>
       <Card style = {cardContainerStyle}sx={{ minWidth: 275 }}>
       <CardContent>
-        <CustomLoginPage/>
+        {!flipped ? (
+          <CustomLoginPage onFlip={handleFlip} />
+        ) : (
+          "Fingerprint Page"
+        )}
       </CardContent>
-
-        
-
-     
     </Card>
     </Box>
   );

@@ -4,7 +4,7 @@ import { Button, TextField, Link } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 
-export default function CustomLoginPage() {
+export default function CustomLoginPage({onFlip}) {
   const [indexNo, setIndexNo] = useState(null);
 
   const handleInputChange = (e) => {
@@ -35,7 +35,7 @@ export default function CustomLoginPage() {
           STOP ATTENDING
         </Button><br></br>
 
-        <Link underline="always" sx={linkStyle}>
+        <Link underline="always" sx={linkStyle} onClick={onFlip}>
           USE BIO-METRIC LOGIN INSTEAD
         </Link>
       </Box>
