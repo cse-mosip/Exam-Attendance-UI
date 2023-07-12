@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
@@ -55,14 +56,14 @@ const Report = () => {
     // }, [])
 
   return (
-    <div>
+    <Box>
         <h1>Attendance Monitoring</h1>
         
         <Link to="/">Back</Link> {/* need to change link to correct page */}
         <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
         <ExamAttendanceTable data={data}/>
         <Link to="/start-attend">Start Attending</Link> {/* add link to attendance marking page */}
-    </div>
+    </Box>
   );
 }
 
