@@ -1,23 +1,23 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 
-import { 
-    LOGIN_USER_BEGIN,
-    LOGIN_USER_SUCCESS,
-    LOGIN_USER_ERROR,
-    LOGOUT_USER,
+import {
+    LOGIN_EXAMINER_BEGIN,
+    LOGIN_EXAMINER_SUCCESS,
+    LOGIN_EXAMINER_ERROR,
+    LOGOUT_EXAMINER,
 } from './actions'
 
 import reducer from './reducer';
 
-const user = localStorage.getItem('user')
+const module = localStorage.getItem('module')
 const token = localStorage.getItem('token')
 
 const initialState = {
     showAlert: false,
     alertText: '',
     alertType: '',
-    user: user? JSON.parse(user): null,
+    module: module? JSON.parse(module): null,
     token: token,
 }
 
@@ -49,48 +49,51 @@ const AppProvider = ({children}) => {
     //     return Promise.reject(error)
     // })
 
-    const addUserToLocalStorage = ({ user, token }) => {
-        localStorage.setItem('user', JSON.stringify(user))
+    const addModulesToLocalStorage = ({ module, token }) => {
+        localStorage.setItem('module', JSON.stringify(module))
         localStorage.setItem('token', token)
     }
     
-    const removeUserToLocalStorage = () => {
-        localStorage.removeItem('user')
+    const removeModulesFromLocalStorage = () => {
+        localStorage.removeItem('module')
         localStorage.removeItem('token')
     }
 
-    const loginUser = async (currentUser) => {
-        dispatch({ type: LOGIN_USER_BEGIN })
+    const loginExaminer = async (fingerPrint) => {
+        dispatch({ type: LOGIN_EXAMINER_BEGIN })
 
         try {
-            const { data } = await axios.post('/api/v1/auth/login', currentUser)
-            const { user, token} = data
-            dispatch({ type: LOGIN_USER_SUCCESS, payload: {
-                user,
-                token
-            } })
+            const { data } = await axios.post('/attendance/exams/verify/examiner', fingerPrint)
+            const { module, token, verification_success} = data
+            if(verification_success){
+                dispatch({ type: LOGIN_EXAMINER_SUCCESS, payload: {
+                        module,
+                        token
+                    } })
+            }
+
             // local storage
-            addUserToLocalStorage({
-                user,
+            addModulesToLocalStorage({
+                module,
                 token
             })
         } catch (error) {
-            dispatch({ type: LOGIN_USER_ERROR, payload: {
+            dispatch({ type: LOGIN_EXAMINER_ERROR, payload: {
                 msg: error.response.data.msg
             } })
         }
     }
 
-    const logoutUser = () => {
-        dispatch({ type: LOGOUT_USER })
-        removeUserToLocalStorage()
+    const logoutExaminer = () => {
+        dispatch({ type: LOGOUT_EXAMINER })
+        removeModulesFromLocalStorage()
     }
 
     return (
         <AppContext.Provider value={{ 
             ...state, 
-            loginUser,
-            logoutUser,
+            loginExaminer: loginExaminer,
+            logoutExaminer: logoutExaminer,
             authFetch,
             }}>
             {children}
