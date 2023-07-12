@@ -9,7 +9,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import FingerprintScanner from "../components/fingerprint-scanner";
 
-export default function AttendanceMarkingPage() {
+export default function AttendanceMarkingPage({isStudent}) {
 
   const [flipped, setFlipped] = useState(false);
 
@@ -28,7 +28,7 @@ export default function AttendanceMarkingPage() {
         {!flipped ? (
           <CustomLoginPage onFlip={handleFlip} />
         ) : (
-          "Fingerprint Page"
+          <FingerprintScanner isStudent={isStudent} onFlip={handleFlip}/>
         )}
       </CardContent>
     </Card>
