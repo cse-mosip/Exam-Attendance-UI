@@ -5,6 +5,7 @@ import FingerprintScanner from "../components/fingerprint-scanner";
 
 export default function ExaminerLoginPage() {
   const [isBioLogin, setIsBioLogin] = useState(true);
+  // This will change the state of the bio login.
   const handleBioLoginChange = () => {
     setIsBioLogin(!isBioLogin);
   };
@@ -14,7 +15,8 @@ export default function ExaminerLoginPage() {
       <Typography variant="h1" sx={styles.title}>
         Examiner Login
       </Typography>
-      {console.log(isBioLogin)}
+
+      {/* Dynamic rendering after checking the bio login or not. */}
       {isBioLogin ? (
         <Box sx={styles.examinerLoginBio}>
           <FingerprintScanner
