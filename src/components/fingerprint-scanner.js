@@ -1,23 +1,59 @@
 import React from "react";
-import { Typography } from '@mui/material';
-import { Link } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import FingerprintImg from "../images/fp_3.png";
+import { Button } from "@mui/material";
+import { useAppContext } from "../context/appContext";
+const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
+  const { loginExaminer } = useAppContext();
 
-const  FingerprintScanner = ({isStudent}) => {
+  // TODO - call this when fingerprint scanning finished
+  const handleLogIn = () => {
+    // TODO - Get fingerprint from the input scanner device
+    const fingerprint = "";
+    loginExaminer(fingerprint);
+  };
+
   return (
-    <div style={{display:"flex",alignItems:"center", justifyContent: "center", marginTop:"10%"}}>
-<Box sx={{ border: 1, borderRadius:5, width:"30%" , padding:"1%",alignItems:"center", justifyContent: "center",display:"flex", flexDirection: "column" }}>
-    <Typography variant="h3">Please place your Finger on the Scanner</Typography>
-    <FingerprintIcon sx={{  fontSize: 150 , borderRadius: "50%", border:3, margin:"10%"}}/>
-    {/* replace the Links with the actual links */}
-    <Link href={isStudent ? "student_login":"examiner_login"} underline="always" >
-  Use {isStudent ? "Index":"Password"} instead
-</Link>
-</Box>
-
-    </div>
+    <Box sx={headingStyle}>
+      <Typography variant="h3">
+        Please place your Finger on the Scanner
+      </Typography>
+      <img
+        src={FingerprintImg}
+        alt="fingerprint image"
+        style={{ margin: "10%" }}
+      />
+      {isStudent && (
+        <Button variant="contained" color="error">
+          STOP ATTENDING
+        </Button>
+      )}
+      <Button
+        onClick={setIsBioLogin}
+        sx={{ textDecoration: "underline", color: "grey" }}
+      >
+        Use {isStudent ? "Index" : "Password"} instead
+      </Button>
+    </Box>
   );
-}
-
+};
 export default FingerprintScanner;
+
+const headingStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  marginTop: "10%",
+  color: "#0170D6",
+  fontSize: 32,
+  letterSpacing: "1px",
+  fontFamily: "Alata, sans-serif",
+  fontWeight: 400,
+  border: 1,
+  borderRadius: 5,
+  width: "35%",
+  padding: "1%",
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+};
