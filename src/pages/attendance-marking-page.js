@@ -26,7 +26,7 @@ export default function AttendanceMarkingPage({isStudent}) {
         {!isBioLogin ? (
           <CustomLoginPage handleFlip={handleFlip} />
         ) : (
-          <FingerprintScanner isStudent={true} handleFlip={handleFlip}/>
+          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip}/>
         )}
     </Box>
   );

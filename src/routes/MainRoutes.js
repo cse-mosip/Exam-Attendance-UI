@@ -4,6 +4,7 @@ import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
 import CustomLoginPage from '../pages/custom-login-page';
 import AttendanceMarkingPage from '../pages/attendance-marking-page';
+import ExaminerLoginPage from '../pages/examiner-login-page';
 
 
 const MainRoutes = {
@@ -30,6 +31,10 @@ const MainRoutes = {
       path: "attendancemarking",
       element: <AttendanceMarkingPage />
     },
+    {
+      path:"login/examiner",
+      element:<ExaminerLoginPage/>
+    }
   ]
 };
 
