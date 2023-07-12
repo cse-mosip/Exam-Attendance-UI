@@ -3,6 +3,7 @@ import LoginPage from '../pages/login_page';
 import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
 import CustomLoginPage from '../pages/custom-login-page';
+import ExaminerLoginPage from '../pages/examiner-login-page';
 
 
 const MainRoutes = {
@@ -24,6 +25,10 @@ const MainRoutes = {
     {
       path: "customlogin",
       element: <CustomLoginPage />
+    },
+    {
+      path:"login/examiner",
+      element:<ExaminerLoginPage/>
     }
   ]
 };
