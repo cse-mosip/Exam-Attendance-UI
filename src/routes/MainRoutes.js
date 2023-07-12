@@ -2,6 +2,7 @@ import MainLayout from '../layout/MainLayout';
 import LoginPage from '../pages/login_page';
 import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
+import CustomLoginPage from '../pages/custom-login-page';
 
 
 const MainRoutes = {
@@ -19,6 +20,10 @@ const MainRoutes = {
     {
       path:"*",
       element:<ErrorPage/>
+    },
+    {
+      path: "customlogin",
+      element: <CustomLoginPage />
     }
   ]
 };
