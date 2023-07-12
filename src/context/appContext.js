@@ -59,11 +59,12 @@ const AppProvider = ({children}) => {
         localStorage.removeItem('token')
     }
 
-    const loginExaminer = async (fingerPrint) => {
+    const loginExaminer = async (logInData, withEmail=false) => {
         dispatch({ type: LOGIN_EXAMINER_BEGIN })
 
         try {
-            const { data } = await axios.post('/attendance/exams/verify/examiner', fingerPrint)
+            const url = withEmail ? '/attendance/exams/verifyEmail/examiner' : '/attendance/exams/verify/examiner'
+            const { data } = await axios.post(url, logInData)
             const { module, token, verification_success} = data
             if(verification_success){
                 dispatch({ type: LOGIN_EXAMINER_SUCCESS, payload: {
