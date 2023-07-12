@@ -9,6 +9,7 @@ import {
   Link,
 } from "@mui/material";
 import React from "react";
+import { useAppContext } from "../context/appContext";
 
 function ExaminerCustomLoginComponent() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -17,6 +18,13 @@ function ExaminerCustomLoginComponent() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const { loginExaminer } = useAppContext();
+
+  // TODO - call this when submit
+  const handleLogIn = (email, password) => {
+    loginExaminer({ email, password }, true);
   };
 
   return (
