@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
@@ -57,8 +57,7 @@ const Report = () => {
 
   return (
     <Box>
-        <h1>Attendance Monitoring</h1>
-        
+        <Typography variant="h1">Attendance Monitoring</Typography>
         <Link to="/">Back</Link> {/* need to change link to correct page */}
         <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
         <ExamAttendanceTable data={data}/>
