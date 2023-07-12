@@ -1,28 +1,28 @@
 import {
-    LOGIN_USER_BEGIN,
-    LOGIN_USER_SUCCESS,
-    LOGIN_USER_ERROR,
-    LOGOUT_USER,
+    LOGIN_EXAMINER_BEGIN,
+    LOGIN_EXAMINER_SUCCESS,
+    LOGIN_EXAMINER_ERROR,
+    LOGOUT_EXAMINER,
 } from './actions'
 import { initialState } from './appContext'
 
 const reducer = (state, action) => {
-    if (action.type === LOGIN_USER_BEGIN) {
+    if (action.type === LOGIN_EXAMINER_BEGIN) {
         return { ...state, isLoading: true }
     }
 
-    if (action.type === LOGIN_USER_SUCCESS) {
+    if (action.type === LOGIN_EXAMINER_SUCCESS) {
         return {
             ...state,
             token: action.payload.token,
-            user: action.payload.user,
+            module: action.payload.module,
             showAlert: true,
             alertType: 'success',
-            alertText: 'Login Successfull! Redirecting...'
+            alertText: 'Login Successful! Redirecting...'
         }
     }
 
-    if (action.type === LOGIN_USER_ERROR) {
+    if (action.type === LOGIN_EXAMINER_ERROR) {
         return {
             ...state,
             showAlert: true,
@@ -31,13 +31,11 @@ const reducer = (state, action) => {
         }
     }
 
-    if (action.type === LOGOUT_USER) {
+    if (action.type === LOGOUT_EXAMINER) {
         return {
             ...initialState,
-            user: null,
+            module: null,
             token: null,
-            userLocation: '',
-            jobLocation: ''
         }
     }
 
