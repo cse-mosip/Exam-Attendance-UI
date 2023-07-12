@@ -23,15 +23,11 @@ export default function AttendanceMarkingPage({isStudent}) {
       <Typography variant="h3" style={headingStyle}>
         Attendance Marking
       </Typography>
-      <Card style = {cardContainerStyle}sx={{ minWidth: 275 }}>
-      <CardContent>
         {!isBioLogin ? (
           <CustomLoginPage handleFlip={handleFlip} />
         ) : (
           <FingerprintScanner isStudent={true} handleFlip={handleFlip}/>
         )}
-      </CardContent>
-    </Card>
     </Box>
   );
 }

@@ -13,8 +13,7 @@ export default function CustomLoginPage({handleFlip}) {
 
   
   return (
-    <Box style={containerStyle}>
-      <Box component="form" Validate>
+      <Box style={formContainerStyle} component="form" Validate>
         <Typography variant="h3" style={headingFormStyle}>
           Sign in with Index
         </Typography>
@@ -39,21 +38,19 @@ export default function CustomLoginPage({handleFlip}) {
           USE BIO-METRIC LOGIN INSTEAD
         </Link>
       </Box>
-    </Box>
   );
 }
 
 // Define style variables
 
 const containerStyle = {
-  marginTop: "10%",
   textAlign: "center",
 };
 
 const headingStyle = {
   marginBottom: "2%",
   color: "#0170D6",
-  fontSize: 32,
+  fontSize: 28,
   letterSpacing: "1px",
   fontFamily: "Alata, sans-serif",
   fontWeight: 400,
