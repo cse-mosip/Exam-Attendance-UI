@@ -2,7 +2,7 @@ import MainLayout from '../layout/MainLayout';
 import LoginPage from '../pages/login_page';
 import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
-import CustomLoginPage from '../components/custom-login-page';
+import CustomLoginPage from '../pages/custom-login-page';
 
 
 const MainRoutes = {
