@@ -3,42 +3,28 @@ import { Box } from "@mui/system";
 import { Button, TextField, Link } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
+import CustomLoginPage from "./custom-login-page";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
-export default function CustomLoginPage() {
-  const [indexNo, setIndexNo] = useState(null);
-
-  const handleInputChange = (e) => {
-    setIndexNo(e.target.value);
-  };
+export default function AttendanceMarkingPage() {
 
   
   return (
     <Box style={containerStyle}>
-      <Box component="form" Validate>
-        <Typography variant="h3" style={headingFormStyle}>
-          Sign in with Index
-        </Typography>
-        <TextField
-          id="standard-basic"
-          label="Index Number:"
-          variant="standard"
-          size="small"
-          sx={textFieldStyle}
-          onChange={(e) => handleInputChange(e)}
-        />
+      <Typography variant="h3" style={headingStyle}>
+        Attendance Marking
+      </Typography>
+      <Card style = {cardContainerStyle}sx={{ minWidth: 275 }}>
+      <CardContent>
+        <CustomLoginPage/>
+      </CardContent>
 
-        <Button type="submit" size="lg" variant="contained" sx={submitButtonStyle}>
-          SUBMIT
-        </Button>
+        
 
-        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle}>
-          STOP ATTENDING
-        </Button><br></br>
-
-        <Link underline="always" sx={linkStyle}>
-          USE BIO-METRIC LOGIN INSTEAD
-        </Link>
-      </Box>
+     
+    </Card>
     </Box>
   );
 }
@@ -59,7 +45,7 @@ const headingStyle = {
   fontWeight: 400,
 };
 
-const formContainerStyle = {
+const cardContainerStyle = {
   borderRadius: 5,
   width: "30%",
   padding: "1%",
@@ -71,6 +57,19 @@ const formContainerStyle = {
   backgroundColor: "#F6F6F6",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
 };
+
+const formContainerStyle = {
+    borderRadius: 5,
+    width: "30%",
+    padding: "1%",
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    margin: "0 auto",
+    backgroundColor: "#F6F6F6",
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+  };
 
 const headingFormStyle = {
   textAlign: "center",

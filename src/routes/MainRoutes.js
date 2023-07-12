@@ -3,6 +3,7 @@ import LoginPage from '../pages/login_page';
 import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
 import CustomLoginPage from '../pages/custom-login-page';
+import AttendanceMarkingPage from '../pages/attendance-marking-page';
 
 
 const MainRoutes = {
@@ -24,7 +25,11 @@ const MainRoutes = {
     {
       path: "customlogin",
       element: <CustomLoginPage />
-    }
+    },
+    {
+      path: "attendancemarking",
+      element: <AttendanceMarkingPage />
+    },
   ]
 };
 
