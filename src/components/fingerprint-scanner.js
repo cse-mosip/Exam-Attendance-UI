@@ -3,7 +3,17 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import FingerprintImg from "../images/fp_3.png";
 import { Button } from "@mui/material";
+import { useAppContext } from "../context/appContext";
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
+  const { loginExaminer } = useAppContext();
+
+  // TODO - call this when fingerprint scanning finished
+  const handleLogIn = () => {
+    // TODO - Get fingerprint from the input scanner device
+    const fingerprint = "";
+    loginExaminer(fingerprint);
+  };
+
   return (
     <Box sx={headingStyle}>
       <Typography variant="h3">
@@ -27,8 +37,6 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
       </Button>
     </Box>
   );
-
-
 };
 export default FingerprintScanner;
 
