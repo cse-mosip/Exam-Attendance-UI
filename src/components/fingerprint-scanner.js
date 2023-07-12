@@ -2,23 +2,38 @@ import React from "react";
 import { Typography } from '@mui/material';
 import { Link } from "@mui/material";
 import { Box } from "@mui/material";
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
-
-const  FingerprintScanner = ({isStudent, onFlip}) => {
+import FingerprintImg from "../images/fp_3.png"
+import { Button } from "@mui/material";
+const  FingerprintScanner = ({isStudent, handleFlip}) => {
   return (
-    <div style={{display:"flex",alignItems:"center", justifyContent: "center", marginTop:"10%"}}>
 <Box>
     <Typography variant="h3">Please place your Finger on the Scanner</Typography>
-    <FingerprintIcon sx={{  fontSize: 150 , borderRadius: "50%", border:3, margin:"10%"}}/>
-    <br></br>
-    {/* replace the Links with the actual links */}
-    <Link href={isStudent ? "attendancemarking":"examiner_login"} underline="always" onClick={onFlip}>
-  Use {isStudent ? "Index":"Password"} instead
-</Link>
+    <img src={FingerprintImg} alt="fingerprint image" style={{margin:"10%"
+}}/>
+    {isStudent && <Button variant="contained" color="error">STOP ATTENDING</Button>}<br></br>
+    <Button onClick={handleFlip} sx={{textDecoration:"underline", color:"grey"}} >Use {isStudent ? "Index":"Password"} instead</Button>
+
 </Box>
 
-    </div>
   );
 }
+const headingStyle = {
+  display:"flex",
+  alignItems:"center",
+  justifyContent: "center",
+  flexDirection: "column",
+  marginTop:"10%",
+  color: "#0170D6",
+  fontSize: 32,
+  letterSpacing: "1px",
+  fontFamily: "Alata, sans-serif",
+  fontWeight: 400,
+  border: 1, 
+  borderRadius:5, 
+  width:"35%" , 
+  padding:"1%", 
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
+// backgroundColor:"#F6F6F6",
 
+};
 export default FingerprintScanner;

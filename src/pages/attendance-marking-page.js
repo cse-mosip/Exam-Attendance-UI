@@ -11,11 +11,11 @@ import FingerprintScanner from "../components/fingerprint-scanner";
 
 export default function AttendanceMarkingPage({isStudent}) {
 
-  const [flipped, setFlipped] = useState(false);
+  const [isBioLogin, setIsBioLogin] = useState(true);
 
   const handleFlip = () => {
-    setFlipped(!flipped);
-  };
+    setIsBioLogin(!isBioLogin)
+  }
 
   
   return (
@@ -25,10 +25,10 @@ export default function AttendanceMarkingPage({isStudent}) {
       </Typography>
       <Card style = {cardContainerStyle}sx={{ minWidth: 275 }}>
       <CardContent>
-        {!flipped ? (
-          <CustomLoginPage onFlip={handleFlip} />
+        {!isBioLogin ? (
+          <CustomLoginPage handleFlip={handleFlip} />
         ) : (
-          <FingerprintScanner isStudent={isStudent} onFlip={handleFlip}/>
+          <FingerprintScanner isStudent={true} handleFlip={handleFlip}/>
         )}
       </CardContent>
     </Card>
