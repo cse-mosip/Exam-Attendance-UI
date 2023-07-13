@@ -46,18 +46,6 @@ function getPresentCount() {
 }
 
 const Report = () => {
-    // not working now without backend
-    // const [data, setData] = useState(null);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await fetch('attendance/exams/report')
-    //         const json = await response.json;
-    //         setData(json);
-    //     }
-    //     fetchData()
-    // }, [])
-  //const theme = useTheme();
   return (
     <Box sx={{ margin: '2rem', padding: '1rem' }}>
         <Typography variant="h1" component="h1" align="center" gutterBottom color="#0170D6">

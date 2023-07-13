@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useTheme } from '@mui/material/styles';
+import { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -82,8 +82,8 @@ function TablePaginationActions(props) {
 
 const ExamAttendanceTable = (props) => {
     const rows = props.data;
-    const [page, setpage] = React.useState(0);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowperpage - rows.length) : 0;
+    const [page, setpage] = useState(0);
   
     function handleChangePage(event, newpage) {
         setpage(newpage);
