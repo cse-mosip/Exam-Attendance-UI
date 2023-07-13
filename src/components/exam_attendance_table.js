@@ -84,7 +84,6 @@ const ExamAttendanceTable = (props) => {
     const rows = props.data;
     const [page, setpage] = useState(0);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowperpage - rows.length) : 0;
-    
   
     function handleChangePage(event, newpage) {
         setpage(newpage);
