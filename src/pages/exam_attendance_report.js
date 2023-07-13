@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link } from 'react-router-dom';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
 
@@ -34,7 +31,7 @@ function getTotalCount() {
     return data.length;
 }
 
-function getPresentCount() {
+function getPresentCount() { 
     let result = 0;
     for (let i = 0; i < data.length; i++) {
         const row = data[i];
@@ -48,24 +45,37 @@ function getPresentCount() {
 const Report = () => {
   return (
     <Box sx={{ margin: '2rem', padding: '1rem' }}>
-        <Typography variant="h1" component="h1" align="center" gutterBottom color="#0170D6">
-                Attendance Monitoring
-            </Typography>
-            <IconButton aria-label="delete">
-              <ArrowBackIosIcon />
-            </IconButton>
+      
+      <IconButton aria-label="delete">
+        <ArrowBackIosIcon />
+      </IconButton>
+      <Typography variant="h1" component="h1" align="center" gutterBottom color="#0170D6">
+        Attendance Monitoring
+      </Typography>  
+      <Box
+        display="flex"
+        justifyContent="right"
+        alignItems="right"
+      >
         <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
-        <ExamAttendanceTable data={data}/>
+      </Box>
+      <ExamAttendanceTable data={data}/>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
         <Button
           variant="contained"
           sx={{
-            margin: "80px  0 20px 0",
-            width: "344px",
-            height: "41px",
+            margin: "40px  0 20px 0",
+            width: "300px",
+            height: "40px",
           }}
         >
           Start Attending
         </Button>
+      </Box>
     </Box>
   );
 }

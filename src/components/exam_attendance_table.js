@@ -117,22 +117,21 @@ const ExamAttendanceTable = (props) => {
                         })}
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 47 * emptyRows }}>
-                                <TableCell colSpan={5} />
+                                <TableCell colSpan={4} />
                             </TableRow>
                         )}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
-                            <TablePagination
-                                colSpan={4}
-                                count={rows.length}
-                                rowsPerPage={rowperpage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                ActionsComponent={TablePaginationActions}
-                                labelRowsPerPage=''
-                                rowsPerPageOptions={[]}
-                            />
+                        <TablePagination
+                            count={rows.length}
+                            rowsPerPage={rowperpage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            ActionsComponent={TablePaginationActions}
+                            labelRowsPerPage=''
+                            rowsPerPageOptions={[]}
+                        />
                         </TableRow>
                     </TableFooter>
                 </Table>
