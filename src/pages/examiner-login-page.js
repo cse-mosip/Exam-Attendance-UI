@@ -26,7 +26,7 @@ export default function ExaminerLoginPage() {
         </Box>
       ) : (
         <Box sx={styles.examinerLoginBio}>
-          <ExaminerCustomLoginComponent />
+          <ExaminerCustomLoginComponent setIsBioLogin={handleBioLoginChange} />
         </Box>
       )}
     </Box>
