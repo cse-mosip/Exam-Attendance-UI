@@ -1,12 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Button, TextField, Link } from "@mui/material";
-import * as React from "react";
 import { useState } from "react";
 import CustomLoginPage from "./custom-login-page";
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import FingerprintScanner from "../components/fingerprint-scanner";
 
 export default function AttendanceMarkingPage({isStudent}) {
