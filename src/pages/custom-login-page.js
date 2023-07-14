@@ -1,7 +1,5 @@
-import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Button, TextField, Link } from "@mui/material";
-import * as React from "react";
+import { Button, TextField, Link, Typography } from "@mui/material";
 import { useState } from "react";
 
 export default function CustomLoginPage({handleFlip}) {
@@ -10,7 +8,6 @@ export default function CustomLoginPage({handleFlip}) {
   const handleInputChange = (e) => {
     setIndexNo(e.target.value);
   };
-
   
   return (
       <Box style={formContainerStyle} component="form" Validate>

@@ -1,8 +1,5 @@
-import React from "react";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import FingerprintImg from "../images/fp_3.png";
-import { Button } from "@mui/material";
 import { useAppContext } from "../context/appContext";
 
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
@@ -40,24 +37,6 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
   );
 };
 export default FingerprintScanner;
-
-// const headingStyle = {
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   flexDirection: "column",
-//   marginTop: "10%",
-//   color: "#0170D6",
-//   fontSize: 28,
-//   letterSpacing: "1px",
-//   fontFamily: "Alata, sans-serif",
-//   fontWeight: 400,
-//   border: 1,
-//   borderRadius: 5,
-//   width: "35%",
-//   padding: "1%",
-//   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-// };
 
 const headingStyle = {
   marginBottom: "2%",

@@ -11,7 +11,6 @@ export default function AttendanceMarkingPage({isStudent}) {
   const handleFlip = () => {
     setIsBioLogin(!isBioLogin)
   }
-
   
   return (
     <Box style={containerStyle}>
