@@ -24,13 +24,12 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
   const { loginExaminer } = useAppContext();
 
   const initialValues = {
-    indexNumber: "",
+    email: "",
     password: "",
   };
 
   const loginDetailsSchema = Yup.object().shape({
-    indexNumber: Yup.string().required("Index Number is required"),
-    //validations for strong password
+    email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
       .required("Password is required")
       .min(8, "Password is too short - should be 8 chars minimum.")
@@ -57,15 +56,15 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
     <Box sx={style.box}>
       <Paper sx={style.paper}>
         <TextField
-          label="Index Number"
+          label="Email"
           variant="standard"
           sx={style.textField}
-          name="indexNumber"
-          value={values.indexNumber}
+          name="email"
+          value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.indexNumber && Boolean(errors.indexNumber)}
-          helperText={touched.indexNumber && errors.indexNumber}
+          error={touched.email && Boolean(errors.email)}
+          helperText={touched.email && errors.email}
           color="primary"
           focused
         />
