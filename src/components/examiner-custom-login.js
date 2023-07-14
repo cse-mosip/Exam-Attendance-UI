@@ -14,6 +14,7 @@ import * as Yup from "yup";
 
 function ExaminerCustomLoginComponent({ setIsBioLogin }) {
   const [showPassword, setShowPassword] = React.useState(false);
+  const withEmail = true;
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -41,7 +42,7 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
   });
 
   const onSubmit = (values) => {
-    loginExaminer(values);
+    loginExaminer(values, withEmail);
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
