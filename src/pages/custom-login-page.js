@@ -1,23 +1,16 @@
-import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Button, TextField, Link } from "@mui/material";
-import * as React from "react";
+import { Button, TextField, Link, Typography } from "@mui/material";
 import { useState } from "react";
 
-export default function CustomLoginPage() {
+export default function CustomLoginPage({handleFlip}) {
   const [indexNo, setIndexNo] = useState(null);
 
   const handleInputChange = (e) => {
     setIndexNo(e.target.value);
   };
-
   
   return (
-    <Box style={containerStyle}>
-      <Typography variant="h3" style={headingStyle}>
-        Attendance Marking
-      </Typography>
-      <Box sx={formContainerStyle} component="form" Validate>
+      <Box style={formContainerStyle} component="form" Validate>
         <Typography variant="h3" style={headingFormStyle}>
           Sign in with Index
         </Typography>
@@ -33,29 +26,28 @@ export default function CustomLoginPage() {
         <Button type="submit" size="lg" variant="contained" sx={submitButtonStyle}>
           SUBMIT
         </Button>
+
         <Button size="lg" color="error" variant="contained" sx={stopButtonStyle}>
           STOP ATTENDING
-        </Button>
+        </Button><br></br>
 
-        <Link underline="always" sx={linkStyle}>
+        <Link underline="always" sx={linkStyle} onClick={handleFlip}>
           USE BIO-METRIC LOGIN INSTEAD
         </Link>
       </Box>
-    </Box>
   );
 }
 
 // Define style variables
 
 const containerStyle = {
-  marginTop: "10%",
   textAlign: "center",
 };
 
 const headingStyle = {
   marginBottom: "2%",
   color: "#0170D6",
-  fontSize: 32,
+  fontSize: 28,
   letterSpacing: "1px",
   fontFamily: "Alata, sans-serif",
   fontWeight: 400,

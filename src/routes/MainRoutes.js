@@ -4,6 +4,7 @@ import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
 import ExamAttendanceReport from '../pages/exam_attendance_report';
 import CustomLoginPage from '../pages/custom-login-page';
+import AttendanceMarkingPage from '../pages/attendance-marking-page';
 import ExaminerLoginPage from '../pages/examiner-login-page';
 import StudentDetailsDummyPage from '../pages/student-details-dummy-page';
 
@@ -31,6 +32,10 @@ const MainRoutes = {
     {
       path: "customlogin",
       element: <CustomLoginPage />
+    },
+    {
+      path: "attendancemarking",
+      element: <AttendanceMarkingPage />
     },
     {
       path:"login/examiner",
