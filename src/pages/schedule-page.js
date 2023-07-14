@@ -100,7 +100,7 @@ const data = [
     { id: 16, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
 ];
 
-const rowsPerPage = 5;
+const rowsPerPage = 7;
 
 export default function () {
     const [page, setPage] = useState(0);
