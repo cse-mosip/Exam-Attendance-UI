@@ -1,10 +1,12 @@
 import { Box, Typography, Button } from "@mui/material";
 import FingerprintImg from "../images/fp_3.png";
 import { useAppContext } from "../context/appContext";
+import { useNavigate } from "react-router-dom";
 
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
   const { loginExaminer } = useAppContext();
-
+  const navigate = useNavigate();
+  
   // TODO - call this when fingerprint scanning finished
   const handleLogIn = () => {
     // TODO - Get fingerprint from the input scanner device
@@ -23,7 +25,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
         style={{ margin: "10%" }}
       />
       {isStudent && (
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={()=>{navigate("/exam-attendance-report")}}>
           STOP ATTENDING
         </Button>
       )}
