@@ -11,10 +11,12 @@ import React from "react";
 import { useAppContext } from "../context/appContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 function ExaminerCustomLoginComponent({ setIsBioLogin }) {
   const [showPassword, setShowPassword] = React.useState(false);
   const withEmail = true;
+  const navigate = useNavigate()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -43,6 +45,7 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
 
   const onSubmit = (values) => {
     loginExaminer(values, withEmail);
+    navigate("/schedule");
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
