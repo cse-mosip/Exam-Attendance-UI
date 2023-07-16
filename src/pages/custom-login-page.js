@@ -3,7 +3,7 @@ import { Button, TextField, Link, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CustomLoginPage({handleFlip}) {
+export default function CustomLoginPage({handleFlip, setOpen}) {
   const [indexNo, setIndexNo] = useState(null);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export default function CustomLoginPage({handleFlip}) {
           onChange={(e) => handleInputChange(e)}
         />
 
-        <Button type="submit" size="lg" variant="contained" sx={submitButtonStyle}>
+        <Button size="lg" variant="contained" sx={submitButtonStyle} onClick={()=>{setOpen(true)}}>
           SUBMIT
         </Button>
 
