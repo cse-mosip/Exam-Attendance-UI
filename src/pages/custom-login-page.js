@@ -1,9 +1,11 @@
 import { Box } from "@mui/system";
 import { Button, TextField, Link, Typography } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CustomLoginPage({handleFlip}) {
+export default function CustomLoginPage({handleFlip, setOpen}) {
   const [indexNo, setIndexNo] = useState(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setIndexNo(e.target.value);
@@ -23,11 +25,11 @@ export default function CustomLoginPage({handleFlip}) {
           onChange={(e) => handleInputChange(e)}
         />
 
-        <Button type="submit" size="lg" variant="contained" sx={submitButtonStyle}>
+        <Button size="lg" variant="contained" sx={submitButtonStyle} onClick={()=>{setOpen(true)}}>
           SUBMIT
         </Button>
 
-        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle}>
+        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle} onClick={()=>{navigate("/exam-attendance-report")}}>
           STOP ATTENDING
         </Button><br></br>
 

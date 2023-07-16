@@ -3,28 +3,29 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
+import { useNavigate } from 'react-router-dom';
 
 function createData(name, index, attendance, paperCollected) {
   return { name, index, attendance, paperCollected };
 }
 
 const data = [
-  createData('Kasun Kasun', "CS1456", "23.07.2023", ""),
-  createData('Nimal Sirisena', "CS1456", "23.07.2023", ""),
-  createData('Pramila Perera', "CS1456", "", "23.07.2023"),
-  createData('Kamal Induwara', "CS1456", "", "23.07.2023"),
-  createData('Kasun Kasun', "CS1456", "23.07.2023", ""),
-  createData('Nimal Sirisena', "CS1456", "23.07.2023", ""),
-  createData('Pramila Perera', "CS1456", "", "23.07.2023"),
-  createData('Kamal Induwara', "CS1456", "", "23.07.2023"),
-  createData('Kasun Kasun', "CS1456", "23.07.2023", ""),
-  createData('Nimal Sirisena', "CS1456", "23.07.2023", ""),
-  createData('Pramila Perera', "CS1456", "", "23.07.2023"),
-  createData('Kamal Induwara', "CS1456", "", "23.07.2023"),
-  createData('Kasun Kasun', "CS1456", "23.07.2023", ""),
-  createData('Nimal Sirisena', "CS1456", "23.07.2023", ""),
-  createData('Pramila Perera', "CS1456", "", "23.07.2023"),
-  createData('Kamal Induwara', "CS1456", "", "23.07.2023"),
+  createData('Kasun Kasun', "190300A", "23.07.2023", ""),
+  createData('Nimal Sirisena', "190890P", "23.07.2023", ""),
+  createData('Pramila Perera', "190000X", "", "23.07.2023"),
+  createData('Kamal Induwara', "190215X", "", "23.07.2023"),
+  createData('Kasun Kasun', "190300A", "23.07.2023", ""),
+  createData('Nimal Sirisena', "190000X", "23.07.2023", ""),
+  createData('Pramila Perera', "190890P", "", "23.07.2023"),
+  createData('Kamal Induwara', "190300A", "", "23.07.2023"),
+  createData('Kasun Kasun', "190000X", "23.07.2023", ""),
+  createData('Nimal Sirisena', "190215X", "23.07.2023", ""),
+  createData('Pramila Perera', "190000X", "", "23.07.2023"),
+  createData('Kamal Induwara', "190890P", "", "23.07.2023"),
+  createData('Kasun Kasun', "190000X", "23.07.2023", ""),
+  createData('Nimal Sirisena', "190890P", "23.07.2023", ""),
+  createData('Pramila Perera', "190215X", "", "23.07.2023"),
+  createData('Kamal Induwara', "190890P", "", "23.07.2023"),
 ];
 
 function getTotalCount() {
@@ -43,15 +44,20 @@ function getPresentCount() {
 }
 
 const Report = () => {
+  const navigate = useNavigate()
   return (
     <Box sx={{ margin: '2rem', padding: '1rem' }}>
       
-      <IconButton aria-label="delete">
+      <IconButton aria-label="delete" onClick={()=>{navigate("/schedule")}}>
         <ArrowBackIosIcon />
       </IconButton>
       <Typography variant="h1" component="h1" align="center" gutterBottom color="#0170D6">
         Attendance Monitoring
       </Typography>  
+      <Typography variant="h4" component="h1" align="center" gutterBottom color="#0170D6">
+      Professional Practice - CS1456
+      </Typography>  
+
       <Box
         display="flex"
         justifyContent="right"
@@ -72,6 +78,7 @@ const Report = () => {
             width: "300px",
             height: "40px",
           }}
+          onClick = {()=>{navigate("/attendance-marking")}}
         >
           Start Attending
         </Button>

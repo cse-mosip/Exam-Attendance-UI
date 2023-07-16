@@ -16,6 +16,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { useNavigate } from 'react-router-dom';
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -104,7 +105,7 @@ const rowsPerPage = 7;
 
 export default function () {
     const [page, setPage] = useState(0);
-
+    const navigate = useNavigate()
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
@@ -112,6 +113,10 @@ export default function () {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    const handleTableRowClick = () => {
+      navigate("/exam-attendance-report")
+    }
 
     return (
         <Box sx={{ margin: '2rem', padding: '1rem' }}>
@@ -133,7 +138,7 @@ export default function () {
                             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : data
                         ).map((row) => (
-                            <TableRow key={row.id}>
+                            <TableRow key={row.id} onClick={handleTableRowClick}>
                                 <TableCell><Typography variant="body1" component="p">{row.module}</Typography></TableCell>
                                 <TableCell><Typography variant="body1" component="p">{row.moduleCode}</Typography></TableCell>
                                 <TableCell><Typography variant="body1" component="p">{row.hall}</Typography></TableCell>

@@ -3,13 +3,25 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import CustomLoginPage from "./custom-login-page";
 import FingerprintScanner from "../components/fingerprint-scanner";
+import StudentDetailsModal from "../components/student-details-modal";
+import profileImage from "../assets/Yasiru.jpg"
 
 export default function AttendanceMarkingPage({isStudent}) {
 
+  const [open, setOpen] = useState(false)
+  const onModalClose = () => {
+      setOpen(false)
+  }
   const [isBioLogin, setIsBioLogin] = useState(true);
 
   const handleFlip = () => {
     setIsBioLogin(!isBioLogin)
+  }
+
+  const person = {
+      name:"Yasiru Lakshan",
+      index:"190331A",
+      profilePicture:profileImage
   }
   
   return (
@@ -18,11 +30,13 @@ export default function AttendanceMarkingPage({isStudent}) {
         Attendance Marking
       </Typography>
         {!isBioLogin ? (
-          <CustomLoginPage handleFlip={handleFlip} />
+          <CustomLoginPage handleFlip={handleFlip} setOpen={setOpen}/>
         ) : (
-          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip}/>
+          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip} setOpen={setOpen}/>
         )}
+      <StudentDetailsModal person={person} open={open} onClose={onModalClose}/>
     </Box>
+    
   );
 }
 
