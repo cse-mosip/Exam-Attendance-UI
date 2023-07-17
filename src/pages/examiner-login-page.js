@@ -13,7 +13,7 @@ export default function ExaminerLoginPage() {
   return (
     <Box>
       <Typography variant="h1" sx={styles.title}>
-        Examiner Login
+        Supervisor Login
       </Typography>
 
       {/* Dynamic rendering after checking the bio login or not. */}
