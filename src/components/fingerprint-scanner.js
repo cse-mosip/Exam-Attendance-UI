@@ -4,14 +4,14 @@ import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
 
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
-  const { loginExaminer } = useAppContext();
+  const { loginSupervisor } = useAppContext();
   const navigate = useNavigate();
   
   // TODO - call this when fingerprint scanning finished
   const handleLogIn = () => {
     // TODO - Get fingerprint from the input scanner device
     const fingerprint = "";
-    loginExaminer(fingerprint);
+    loginSupervisor(fingerprint);
   };
 
   return (
