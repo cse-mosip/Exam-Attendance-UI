@@ -7,7 +7,6 @@ import NavBar from './components/Navbar';
 
 const App = () => (
   <ThemeCustomization>
-      
       <BrowserRouter>
         <NavBar/>
         <Routes />
