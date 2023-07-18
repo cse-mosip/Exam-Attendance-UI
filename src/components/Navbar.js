@@ -7,13 +7,13 @@ import Button from '@mui/material/Button';
 
 function NavBar() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor:"#00417D"}}> 
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <IconButton color="inherit" aria-label="logo" sx={{marginLeft:'30px'}}>
-            <img src="../LogoMain.png" alt="Logo" style={{ height: '160px' }} />
+            <img src="../LogoMain1.png" alt="Logo" style={{ height: '45px',marginLeft:'30px'}} />
          </IconButton>
-          <Button variant="contained" color='error'>Log Out</Button>
+          <Button variant="contained" sx={{ height: '35px'}} color='error'>Log Out</Button>
         </Toolbar>
       </Container>
     </AppBar>

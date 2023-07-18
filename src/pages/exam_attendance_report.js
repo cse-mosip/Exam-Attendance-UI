@@ -48,8 +48,7 @@ const Report = () => {
   const navigate = useNavigate()
   return (
     <Box>
-      <NavBar/>
-      <Box sx={{ margin: '2rem', padding: '1rem' }}>
+      <Box sx={{ margin: '1rem', padding: '1rem' }}>
         <Box display="flex" alignItems="center">
           <Box>
             <IconButton aria-label="delete" onClick={() => { navigate("/schedule") }}>

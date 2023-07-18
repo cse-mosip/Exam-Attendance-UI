@@ -17,7 +17,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
   return (
     <Box style={formContainerStyle} >
       <Typography variant="h3" sx={headingStyle}>
-        Please place your Finger on the Scanner
+        Please place your finger on the scanner
       </Typography>
       <img
         src={FingerprintImg}
@@ -33,7 +33,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
         onClick={setIsBioLogin}
         sx={{ textDecoration: "underline", color: "grey" }}
       >
-        Use {isStudent ? "Index" : "Password"} instead
+        USE {isStudent ? "INDEX" : "PASSWORD"} INSTEAD
       </Button>
     </Box>
   );
@@ -47,17 +47,18 @@ const headingStyle = {
   letterSpacing: "1px",
   fontFamily: "Alata, sans-serif",
   fontWeight: 400,
+  textAlign: "center"
 };
 
 const formContainerStyle = {
-  borderRadius: 5,
   width: "30%",
-  padding: "1%",
+  padding: "30px",
   alignItems: "center",
   justifyContent: "center",
   display: "flex",
   flexDirection: "column",
   margin: "0 auto",
-  backgroundColor: "#F6F6F6",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+  backgroundColor: "#FFFFFF",
+  borderRadius:"3%"
 };
