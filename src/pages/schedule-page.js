@@ -13,8 +13,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,9 +20,7 @@ function TablePaginationActions(props) {
     const theme = useTheme();
     const { count, page, rowsPerPage, onPageChange } = props;
 
-    const handleFirstPageButtonClick = (
-        event,
-    ) => {
+    const handleFirstPageButtonClick = (event) => {
         onPageChange(event, 0);
     };
 
@@ -54,14 +50,20 @@ function TablePaginationActions(props) {
                 disabled={page === 0}
                 aria-label="previous page"
             >
-                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                <Typography>{page <= 0 ? '' : page}</Typography>
+            </IconButton>
+            <IconButton
+                disabled={true}
+                aria-label="current page"
+            >
+                <Typography>{page + 1}</Typography>
             </IconButton>
             <IconButton
                 onClick={handleNextButtonClick}
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
                 aria-label="next page"
             >
-                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                <Typography>{(page >= Math.ceil(count / rowsPerPage) - 1) ? '' : page + 2}</Typography>
             </IconButton>
             <IconButton
                 onClick={handleLastPageButtonClick}
@@ -83,27 +85,27 @@ const columns = [
 ];
 
 const data = [
-    { id: 1, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'A101', studentCount: '50 users', time: '9:00 AM' },
-    { id: 2, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 3, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 4, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 5, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 6, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 7, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 8, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 9, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 10, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 11, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 12, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 13, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 14, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 15, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
-    { id: 16, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM' },
+    { id: 1, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'A101', studentCount: '50 users', time: '9:00 AM - 10:00 AM' },
+    { id: 2, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 3, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 4, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 5, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 6, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 7, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 8, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 9, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 10, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 11, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 12, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 13, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 14, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 15, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
+    { id: 16, module: 'Professional Practice', moduleCode: 'CS1456', hall: 'B202', studentCount: '40 users', time: '10:30 AM - 11:30 AM' },
 ];
 
 const rowsPerPage = 7;
 
-export default function () {
+export default function SchedulePage() {
     const [page, setPage] = useState(0);
     const navigate = useNavigate()
     // Avoid a layout jump when reaching the last page with empty rows.

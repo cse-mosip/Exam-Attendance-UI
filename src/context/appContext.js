@@ -2,10 +2,10 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 
 import {
-    LOGIN_EXAMINER_BEGIN,
-    LOGIN_EXAMINER_SUCCESS,
-    LOGIN_EXAMINER_ERROR,
-    LOGOUT_EXAMINER,
+    LOGIN_SUPERVISOR_BEGIN,
+    LOGIN_SUPERVISOR_SUCCESS,
+    LOGIN_SUPERVISOR_ERROR,
+    LOGOUT_SUPERVISOR,
 } from './actions'
 
 import reducer from './reducer';
@@ -59,15 +59,15 @@ const AppProvider = ({children}) => {
         localStorage.removeItem('token')
     }
 
-    const loginExaminer = async (logInData, withEmail=false) => {
-        dispatch({ type: LOGIN_EXAMINER_BEGIN })
+    const loginSupervisor = async (logInData, withEmail=false) => {
+        dispatch({ type: LOGIN_SUPERVISOR_BEGIN })
 
         try {
-            const url = withEmail ? '/attendance/exams/verifyEmail/examiner' : '/attendance/exams/verify/examiner'
+            const url = withEmail ? '/attendance/exams/verifyEmail/supervisor' : '/attendance/exams/verify/supervisor'
             const { data } = await axios.post(url, logInData)
             const { modules, token, verification_success} = data
             if(verification_success){
-                dispatch({ type: LOGIN_EXAMINER_SUCCESS, payload: {
+                dispatch({ type: LOGIN_SUPERVISOR_SUCCESS, payload: {
                         modules,
                         token
                     } })
@@ -79,22 +79,22 @@ const AppProvider = ({children}) => {
                 token
             })
         } catch (error) {
-            dispatch({ type: LOGIN_EXAMINER_ERROR, payload: {
+            dispatch({ type: LOGIN_SUPERVISOR_ERROR, payload: {
                 msg: error.response.data.msg
             } })
         }
     }
 
-    const logoutExaminer = () => {
-        dispatch({ type: LOGOUT_EXAMINER })
+    const logoutSupervisor = () => {
+        dispatch({ type: LOGOUT_SUPERVISOR })
         removeModulesFromLocalStorage()
     }
 
     return (
         <AppContext.Provider value={{ 
             ...state, 
-            loginExaminer: loginExaminer,
-            logoutExaminer: logoutExaminer,
+            loginSupervisor: loginSupervisor,
+            logoutSupervisor: logoutSupervisor,
             authFetch,
             }}>
             {children}

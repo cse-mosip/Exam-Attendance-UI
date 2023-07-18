@@ -3,7 +3,7 @@ import SchedulePage from '../pages/schedule-page';
 import ErrorPage from '../pages/error-page';
 import ExamAttendanceReport from '../pages/exam_attendance_report';
 import AttendanceMarkingPage from '../pages/attendance-marking-page';
-import ExaminerLoginPage from '../pages/examiner-login-page';
+import SupervisorLoginPage from '../pages/supervisor-login-page';
 
 const MainRoutes = {
   path: '/',
@@ -11,7 +11,7 @@ const MainRoutes = {
   children: [
     {
       path: '/login',
-      element:<ExaminerLoginPage/>
+      element:<SupervisorLoginPage/>
     },
     {
       path: 'schedule',

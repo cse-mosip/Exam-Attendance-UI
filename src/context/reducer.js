@@ -1,17 +1,17 @@
 import {
-    LOGIN_EXAMINER_BEGIN,
-    LOGIN_EXAMINER_SUCCESS,
-    LOGIN_EXAMINER_ERROR,
-    LOGOUT_EXAMINER,
+    LOGIN_SUPERVISOR_BEGIN,
+    LOGIN_SUPERVISOR_SUCCESS,
+    LOGIN_SUPERVISOR_ERROR,
+    LOGOUT_SUPERVISOR,
 } from './actions'
 import { initialState } from './appContext'
 
 const reducer = (state, action) => {
-    if (action.type === LOGIN_EXAMINER_BEGIN) {
+    if (action.type === LOGIN_SUPERVISOR_BEGIN) {
         return { ...state, isLoading: true }
     }
 
-    if (action.type === LOGIN_EXAMINER_SUCCESS) {
+    if (action.type === LOGIN_SUPERVISOR_SUCCESS) {
         return {
             ...state,
             token: action.payload.token,
@@ -22,7 +22,7 @@ const reducer = (state, action) => {
         }
     }
 
-    if (action.type === LOGIN_EXAMINER_ERROR) {
+    if (action.type === LOGIN_SUPERVISOR_ERROR) {
         return {
             ...state,
             showAlert: true,
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
         }
     }
 
-    if (action.type === LOGOUT_EXAMINER) {
+    if (action.type === LOGOUT_SUPERVISOR) {
         return {
             ...initialState,
             module: null,

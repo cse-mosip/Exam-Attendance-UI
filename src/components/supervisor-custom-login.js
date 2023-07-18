@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-function ExaminerCustomLoginComponent({ setIsBioLogin }) {
+function SupervisorCustomLoginComponent({ setIsBioLogin }) {
   const [showPassword, setShowPassword] = React.useState(false);
   const withEmail = true;
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
     event.preventDefault();
   };
 
-  const { loginExaminer } = useAppContext();
+  const { loginSupervisor } = useAppContext();
 
   const initialValues = {
     email: "",
@@ -44,7 +44,7 @@ function ExaminerCustomLoginComponent({ setIsBioLogin }) {
   });
 
   const onSubmit = (values) => {
-    loginExaminer(values, withEmail);
+    loginSupervisor(values, withEmail);
     navigate("/schedule");
   };
 
@@ -140,4 +140,4 @@ const style = {
   biometricButton: { textDecoration: "underline", color: "grey" },
 };
 
-export default ExaminerCustomLoginComponent;
+export default SupervisorCustomLoginComponent;
