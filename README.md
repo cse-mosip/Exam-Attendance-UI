@@ -4,29 +4,29 @@ This is the front end app for the exam attendance.
 
 # Project Screen Shot(s)
 
-### Examiner login page
+### Supervisor login page
 
-Examiner can login using fingerprint.
+Supervisor can login using fingerprint.
 ![Alt text](./src/images/image.png)
 
-### Examiner login page
+### Supervisor login page
 
-Examiner can use email and password to login.
+Supervisor can use email and password to login.
 ![Alt text](./src/images/image-1.png)
 
 ### Exam schedule page
 
-After the examiner logs in, he/she can view the exams assigned to him/her for the current day.
+After the supervisor logs in, he/she can view the exams assigned to him/her for the current day.
 ![Alt text](./src/images/image-2.png)
 
 ### Exam attendance monitoring page
 
-When the examiner selects an exam from the Exam Schedule Page, he/she will be directed to the attendance monitoring page. Examiner can view all the students enrolled for that module along with the thier attendance details.
+When the supervisor selects an exam from the Exam Schedule Page, he/she will be directed to the attendance monitoring page. Supervisor can view all the students enrolled for that module along with the thier attendance details.
 ![Alt text](./src/images/image-3.png)
 
 ### Student atendance marking page
 
-Once examiner press `Start Attending` on `Attendance Monitoring` page. This window will be opened to take attendance of students.
+Once supervisor press `Start Attending` on `Attendance Monitoring` page. This window will be opened to take attendance of students.
 ![Alt text](./src/images/image-4.png)
 
 ### Student atendance marking page
