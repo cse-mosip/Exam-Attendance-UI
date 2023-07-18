@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 function NavBar() {
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log(currentPath);
   const isLoginPage = currentPath === "/login";
 
   const navigate = useNavigate();
