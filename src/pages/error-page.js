@@ -5,7 +5,6 @@ export default function ErrorPage() {
 
   return (
     <Box style={containerStyle}>
-
       <Box sx={formContainerStyle} component="form" Validate>
         <Typography variant="h1" style={headingFormStyle404}>
           404
@@ -13,11 +12,6 @@ export default function ErrorPage() {
         <Typography variant="h3" style={headingFormStyle}>
           Page Not Found
         </Typography>
-
-        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle}>
-          Home
-        </Button>
-
       </Box>
     </Box>
   );
