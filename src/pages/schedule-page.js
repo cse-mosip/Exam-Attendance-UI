@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -84,137 +84,6 @@ const columns = [
   { id: "time", label: "Time" },
 ];
 
-// const data = [
-//   {
-//     id: 1,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "A101",
-//     studentCount: "50 users",
-//     time: "9:00 AM - 10:00 AM",
-//   },
-//   {
-//     id: 2,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 3,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 4,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 5,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 6,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 7,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 8,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 9,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 10,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 11,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 12,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 13,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 14,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 15,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-//   {
-//     id: 16,
-//     module: "Professional Practice",
-//     moduleCode: "CS1456",
-//     hall: "B202",
-//     studentCount: "40 users",
-//     time: "10:30 AM - 11:30 AM",
-//   },
-// ];
-
 const rowsPerPage = 7;
 
 export default function SchedulePage() {
@@ -249,77 +118,109 @@ export default function SchedulePage() {
         Exam Schedule Page
       </Typography>
 
-      <TableContainer component={Paper} sx={{ marginTop: "4rem" }}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell key={column.id}>
-                  <Typography variant="h5" component="p">
-                    {column.label}
-                  </Typography>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(rowsPerPage > 0
-              ? exams.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : exams
-            ).map((row) => (
-              <TableRow key={row.id} onClick={handleTableRowClick}>
-                <TableCell>
-                  <Typography variant="body1" component="p">
-                    {row.module}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body1" component="p">
-                    {row.moduleCode}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body1" component="p">
-                    {row.hall}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body1" component="p">
-                    {row.studentCount}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body1" component="p">
-                    {row.time}
-                  </Typography>
-                </TableCell>
+      {isLoading ? (
+        <Box
+          sx={{
+            pointerEvents: "none",
+            opacity: 0.4,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80vh",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <TableContainer component={Paper} sx={{ marginTop: "4rem" }}>
+          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.id}>
+                    <Typography variant="h5" component="p">
+                      {column.label}
+                    </Typography>
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 47 * emptyRows }}>
-                <TableCell colSpan={5} />
-              </TableRow>
+            </TableHead>
+            {exams.length === 0 ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Typography
+                      variant="h5"
+                      component="p"
+                      align="center"
+                      sx={{ marginTop: "2rem" }}
+                    >
+                      No exams scheduled
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) : (
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? exams.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                  : exams
+                ).map((row) => (
+                  <TableRow key={row.id} onClick={handleTableRowClick}>
+                    <TableCell>
+                      <Typography variant="body1" component="p">
+                        {row.module}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1" component="p">
+                        {row.moduleCode}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1" component="p">
+                        {row.hall}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1" component="p">
+                        {row.studentCount}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body1" component="p">
+                        {row.time}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 47 * emptyRows }}>
+                    <TableCell colSpan={5} />
+                  </TableRow>
+                )}
+              </TableBody>
             )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                colSpan={3}
-                count={exams.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                ActionsComponent={TablePaginationActions}
-                labelRowsPerPage=""
-                rowsPerPageOptions={[]}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  colSpan={3}
+                  count={exams.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  ActionsComponent={TablePaginationActions}
+                  labelRowsPerPage=""
+                  rowsPerPageOptions={[]}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
 }

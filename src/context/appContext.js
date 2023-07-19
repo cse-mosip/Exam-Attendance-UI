@@ -32,6 +32,8 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // axios and add Access-Token to header
+  const dummyToken =
+    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaXNzIjoiQXR0ZW5kYW5jZVNlcnZpY2UiLCJhdWQiOiJBdHRlbmRhbmNlRnJvbnRlbmRzIiwiaWF0IjoxNjg5NzQ2OTY4LCJleHAiOjE2ODk3NTA1NjgsIm5iZiI6MTY4OTc0Njk2NywidXNlcl90eXBlIjoiMSJ9.gKEW341go6tyOoYZj9AfJozICqWk3_cKpe1seQgd0Me5AboJ-wiDUtqyAYudtDfnPTpjV89nb9KUCfaLoYTa0Q";
   const authFetch = axios.create({
     baseURL: "http://20.235.163.35:8080",
     headers: {
@@ -39,7 +41,7 @@ const AppProvider = ({ children }) => {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       "Access-Control-Allow-Headers": "Origin, Content-Type, Authorization",
-      "Access-Token": localStorage.getItem("token"),
+      "Access-Token": dummyToken,
     },
   });
 
@@ -118,14 +120,14 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: FETCH_EXAMS_SCHEDULE_SUCCESS,
         payload: {
-          exams: response.data,
+          exams: response.data.data,
         },
       });
     } catch (error) {
       dispatch({
         type: FETCH_EXAMS_SCHEDULE_ERROR,
         payload: {
-          msg: error.response.data.msg,
+          msg: error.response.data.message,
         },
       });
     }
