@@ -117,110 +117,109 @@ export default function SchedulePage() {
       >
         Exam Schedule Page
       </Typography>
-
-      {isLoading ? (
-        <Box
-          sx={{
-            pointerEvents: "none",
-            opacity: 0.4,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "80vh",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <TableContainer component={Paper} sx={{ marginTop: "4rem" }}>
-          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-            <TableHead>
+      <TableContainer component={Paper} sx={{ marginTop: "4rem" }}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column.id}>
+                  <Typography variant="h5" component="p">
+                    {column.label}
+                  </Typography>
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          {isLoading ? (
+            <TableBody>
               <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column.id}>
-                    <Typography variant="h5" component="p">
-                      {column.label}
+                <TableCell colSpan={6}>
+                  <Typography
+                    variant="h5"
+                    component="p"
+                    align="center"
+                    sx={{ marginTop: "2rem" }}
+                  >
+                    <CircularProgress />
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          ) : exams.length === 0 ? (
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <Typography
+                    variant="h5"
+                    component="p"
+                    align="center"
+                    sx={{ marginTop: "2rem" }}
+                  >
+                    No exams scheduled
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          ) : (
+            <TableBody>
+              {(rowsPerPage > 0
+                ? exams.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : exams
+              ).map((row) => (
+                <TableRow key={row.id} onClick={handleTableRowClick}>
+                  <TableCell>
+                    <Typography variant="body1" component="p">
+                      {row.module}
                     </Typography>
                   </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            {exams.length === 0 ? (
-              <TableBody>
-                <TableRow>
-                  <TableCell colSpan={6}>
-                    <Typography
-                      variant="h5"
-                      component="p"
-                      align="center"
-                      sx={{ marginTop: "2rem" }}
-                    >
-                      No exams scheduled
+                  <TableCell>
+                    <Typography variant="body1" component="p">
+                      {row.moduleCode}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body1" component="p">
+                      {row.hall}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body1" component="p">
+                      {row.studentCount}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body1" component="p">
+                      {row.time}
                     </Typography>
                   </TableCell>
                 </TableRow>
-              </TableBody>
-            ) : (
-              <TableBody>
-                {(rowsPerPage > 0
-                  ? exams.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : exams
-                ).map((row) => (
-                  <TableRow key={row.id} onClick={handleTableRowClick}>
-                    <TableCell>
-                      <Typography variant="body1" component="p">
-                        {row.module}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body1" component="p">
-                        {row.moduleCode}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body1" component="p">
-                        {row.hall}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body1" component="p">
-                        {row.studentCount}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body1" component="p">
-                        {row.time}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 47 * emptyRows }}>
-                    <TableCell colSpan={5} />
-                  </TableRow>
-                )}
-              </TableBody>
-            )}
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  colSpan={3}
-                  count={exams.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  ActionsComponent={TablePaginationActions}
-                  labelRowsPerPage=""
-                  rowsPerPageOptions={[]}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
-      )}
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 47 * emptyRows }}>
+                  <TableCell colSpan={5} />
+                </TableRow>
+              )}
+            </TableBody>
+          )}
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                colSpan={3}
+                count={exams.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                ActionsComponent={TablePaginationActions}
+                labelRowsPerPage=""
+                rowsPerPageOptions={[]}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </Box>
   );
 }
