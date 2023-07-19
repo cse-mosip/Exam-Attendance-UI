@@ -1,6 +1,5 @@
 import React, { useReducer, useContext } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 import {
   LOGIN_SUPERVISOR_BEGIN,
@@ -74,28 +73,6 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
-  const displaySuccessToast = (msg) => {
-    toast.success(msg, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
-
-  const displayErrorToast = (msg) => {
-    toast.error(msg, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
-
   const loginSupervisor = async (logInData, withEmail = false) => {
     dispatch({ type: LOGIN_SUPERVISOR_BEGIN });
 
@@ -157,7 +134,6 @@ const AppProvider = ({ children }) => {
           msg: errorMessage,
         },
       });
-      displayErrorToast(errorMessage);
     }
   };
 
@@ -169,8 +145,6 @@ const AppProvider = ({ children }) => {
         logoutSupervisor: logoutSupervisor,
         authFetch,
         fetchExamsSchedule,
-        displaySuccessToast,
-        displayErrorToast,
       }}
     >
       {children}
