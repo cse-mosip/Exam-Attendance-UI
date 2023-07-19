@@ -6,9 +6,6 @@ import {
   LOGIN_SUPERVISOR_SUCCESS,
   LOGIN_SUPERVISOR_ERROR,
   LOGOUT_SUPERVISOR,
-  FETCH_EXAMS_SCHEDULE_BEGIN,
-  FETCH_EXAMS_SCHEDULE_SUCCESS,
-  FETCH_EXAMS_SCHEDULE_ERROR,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -35,13 +32,6 @@ const AppProvider = ({ children }) => {
 
   const authFetch = axios.create({
     baseURL: "http://20.235.163.35:8080",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-      "Access-Control-Allow-Headers": "Origin, Content-Type, Authorization",
-      "Access-Token": token,
-    },
   });
 
   // request
