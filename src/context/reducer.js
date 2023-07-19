@@ -45,7 +45,7 @@ const reducer = (state, action) => {
   if (action.type === FETCH_EXAMS_SCHEDULE_BEGIN) {
     return {
       ...state,
-      isLoading: true,
+      isLoadingExams: true,
     };
   }
 
@@ -61,9 +61,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoadingExams: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
+      fetchExamsScheduleError: false,
+      fetchExamsScheduleErrorMsg: action.payload.msg,
     };
   }
 

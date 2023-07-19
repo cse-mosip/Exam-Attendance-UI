@@ -17,6 +17,7 @@ const modules = localStorage.getItem("modules");
 const token = localStorage.getItem("token");
 
 const initialState = {
+  //Login
   showAlert: false,
   alertText: "",
   alertType: "",
@@ -24,7 +25,11 @@ const initialState = {
   token: token,
   isLoading: false,
   isLoadingExams: false,
+
+  //Exams
   exams: [],
+  fetchExamsScheduleError: false,
+  fetchExamsScheduleErrorMsg: "",
 };
 
 const AppContext = React.createContext();
