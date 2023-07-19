@@ -6,8 +6,9 @@ import {
   InputAdornment,
   IconButton,
   Button,
+  CircularProgress,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppContext } from "../context/appContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,8 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 function SupervisorCustomLoginComponent({ setIsBioLogin }) {
   const [showPassword, setShowPassword] = React.useState(false);
-  const withEmail = true;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -24,7 +24,7 @@ function SupervisorCustomLoginComponent({ setIsBioLogin }) {
     event.preventDefault();
   };
 
-  const { loginSupervisor } = useAppContext();
+  const { loginSupervisor, isLoading, token } = useAppContext();
 
   const initialValues = {
     email: "",
@@ -33,20 +33,23 @@ function SupervisorCustomLoginComponent({ setIsBioLogin }) {
 
   const loginDetailsSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password is too short - should be 8 chars minimum.")
-      .max(20, "Password is too long - should be 20 chars maximum.")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ),
+    password: Yup.string().required("Password is required"),
   });
 
   const onSubmit = (values) => {
-    loginSupervisor(values, withEmail);
-    navigate("/schedule");
+    loginSupervisor({
+      username: values.email,
+      password: values.password,
+      grant_type: "password",
+    });
   };
+
+  useEffect(() => {
+    if (!isLoading && token != null) {
+      navigate("/schedule");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, token]);
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
@@ -101,6 +104,9 @@ function SupervisorCustomLoginComponent({ setIsBioLogin }) {
           color="primary"
           focused
         />
+
+        <Box sx={style.loaderWrapper}>{isLoading && <CircularProgress />}</Box>
+
         <Button
           variant="contained"
           color="primary"
@@ -133,11 +139,15 @@ const style = {
     marginTop: "30px",
   },
   submitButton: {
-    margin: "80px  0 20px 0",
+    margin: "20px  0 20px 0",
     width: "344px",
     height: "41px",
   },
   biometricButton: { textDecoration: "underline", color: "grey" },
+  loaderWrapper: {
+    height: "50px",
+    paddingTop: "15px",
+  },
 };
 
 export default SupervisorCustomLoginComponent;

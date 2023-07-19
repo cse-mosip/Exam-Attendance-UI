@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/appContext";
 
 function NavBar() {
   const location = useLocation();
@@ -12,7 +13,10 @@ function NavBar() {
 
   const navigate = useNavigate();
 
+  const { logoutSupervisor } = useAppContext();
+
   const handleLogout = () => {
+    logoutSupervisor();
     navigate("/login");
   };
 

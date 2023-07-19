@@ -9,6 +9,7 @@ import {
 } from "./actions";
 
 import reducer from "./reducer";
+import { errorToast } from "../components/toast";
 
 const modules = localStorage.getItem("modules");
 const token = localStorage.getItem("token");
@@ -37,6 +38,7 @@ const AppProvider = ({ children }) => {
   // request
   authFetch.interceptors.request.use(
     (config) => {
+      const token = localStorage.getItem("token");
       if (token) {
         config.headers["Access-Token"] = token;
       }
@@ -60,40 +62,33 @@ const AppProvider = ({ children }) => {
     }
   );
 
-  const addModulesToLocalStorage = ({ modules, token }) => {
-    localStorage.setItem("modules", JSON.stringify(modules));
+  const addTokenToLocalStorage = ({ modules, token }) => {
     localStorage.setItem("token", token);
   };
 
-  const removeModulesFromLocalStorage = () => {
-    localStorage.removeItem("modules");
+  const removeTokenFromLocalStorage = () => {
     localStorage.removeItem("token");
   };
 
-  const loginSupervisor = async (logInData, withEmail = false) => {
+  const loginSupervisor = async (logInData) => {
     dispatch({ type: LOGIN_SUPERVISOR_BEGIN });
 
     try {
-      const url = withEmail
-        ? "/attendance/exams/verifyEmail/supervisor"
-        : "/attendance/exams/verify/supervisor";
-      const { data } = await axios.post(url, logInData);
-      const { modules, token, verification_success } = data;
-      if (verification_success) {
+      const { data } = await authFetch.post("/admin/login", logInData);
+
+      if (data?.access_token) {
         dispatch({
           type: LOGIN_SUPERVISOR_SUCCESS,
           payload: {
-            modules,
-            token,
+            token: data.access_token,
           },
         });
+        addTokenToLocalStorage({
+          token: data.access_token,
+        });
+      } else {
+        errorToast("Login failed");
       }
-
-      // local storage
-      addModulesToLocalStorage({
-        modules,
-        token,
-      });
     } catch (error) {
       dispatch({
         type: LOGIN_SUPERVISOR_ERROR,
@@ -101,20 +96,28 @@ const AppProvider = ({ children }) => {
           msg: error.response.data.msg,
         },
       });
+      if (
+        error.response.data.status === "EMAIL_NOT_FOUND" ||
+        error.response.data.status === "INCORRECT_PASSWORD"
+      ) {
+        errorToast("Invalid email or password");
+      } else {
+        errorToast("Login failed");
+      }
     }
   };
 
   const logoutSupervisor = () => {
     dispatch({ type: LOGOUT_SUPERVISOR });
-    removeModulesFromLocalStorage();
+    removeTokenFromLocalStorage();
   };
 
   return (
     <AppContext.Provider
       value={{
         ...state,
-        loginSupervisor: loginSupervisor,
-        logoutSupervisor: logoutSupervisor,
+        loginSupervisor,
+        logoutSupervisor,
         authFetch,
       }}
     >

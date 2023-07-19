@@ -6,16 +6,18 @@ import { useNavigate } from "react-router-dom";
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
   const { loginSupervisor } = useAppContext();
   const navigate = useNavigate();
-  
+
   // TODO - call this when fingerprint scanning finished
   const handleLogIn = () => {
-    // TODO - Get fingerprint from the input scanner device
     const fingerprint = "";
-    loginSupervisor(fingerprint);
+    // TODO - Get fingerprint from the input scanner device
+    if (!isStudent) {
+      loginSupervisor(fingerprint);
+    }
   };
 
   return (
-    <Box style={formContainerStyle} >
+    <Box style={formContainerStyle}>
       <Typography variant="h3" sx={headingStyle}>
         Please place your finger on the scanner
       </Typography>
@@ -25,7 +27,13 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
         style={{ margin: "10%" }}
       />
       {isStudent && (
-        <Button variant="contained" color="error" onClick={()=>{navigate("/exam-attendance-report")}}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => {
+            navigate("/exam-attendance-report");
+          }}
+        >
           STOP ATTENDING
         </Button>
       )}
@@ -47,7 +55,7 @@ const headingStyle = {
   letterSpacing: "1px",
   fontFamily: "Alata, sans-serif",
   fontWeight: 400,
-  textAlign: "center"
+  textAlign: "center",
 };
 
 const formContainerStyle = {
@@ -60,5 +68,5 @@ const formContainerStyle = {
   margin: "0 auto",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
   backgroundColor: "#FFFFFF",
-  borderRadius:"3%"
+  borderRadius: "3%",
 };
