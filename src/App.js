@@ -11,6 +11,7 @@ const App = () => (
   <ThemeCustomization>
     <BrowserRouter>
       <NavBar />
+      <ToastContainer />
       <Routes />
     </BrowserRouter>
   </ThemeCustomization>
