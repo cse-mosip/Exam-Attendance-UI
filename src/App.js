@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => (
   <ThemeCustomization>
-    <ToastContainer />
     <BrowserRouter>
       <NavBar />
       <Routes />
