@@ -89,7 +89,13 @@ const rowsPerPage = 7;
 export default function SchedulePage() {
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
-  const { fetchExamsSchedule, exams, isLoadingExams } = useAppContext();
+  const { authFetch } = useAppContext();
+  const [isLoadingExams, setIsLoadingExams] = useState(false);
+  const [fetchExamsError, setFetchExamsError] = useState({
+    isError: false,
+    message: "",
+  });
+  const [exams, setExams] = useState([]);
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - exams.length) : 0;
@@ -100,6 +106,24 @@ export default function SchedulePage() {
 
   const handleTableRowClick = () => {
     navigate("/exam-attendance-report");
+  };
+
+  const fetchExamsSchedule = async () => {
+    setIsLoadingExams(true);
+
+    try {
+      const response = await authFetch.post("/admin/exam/all-exams", {});
+      setExams(response.data.data);
+      setIsLoadingExams(false);
+    } catch (error) {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      }
+      setFetchExamsError({ isError: true, message: errorMessage });
+      setIsLoadingExams(false);
+      //should call error toast after implementing
+    }
   };
 
   useEffect(() => {
@@ -144,6 +168,21 @@ export default function SchedulePage() {
                   >
                     <CircularProgress />
                   </Box>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          ) : fetchExamsError.isError ? (
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <Typography
+                    variant="h5"
+                    component="p"
+                    align="center"
+                    sx={{ padding: "1rem" }}
+                  >
+                    {fetchExamsError.message}
+                  </Typography>
                 </TableCell>
               </TableRow>
             </TableBody>

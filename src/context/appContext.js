@@ -24,12 +24,6 @@ const initialState = {
   modules: modules ? JSON.parse(modules) : null,
   token: token,
   isLoading: false,
-  isLoadingExams: false,
-
-  //Exams
-  exams: [],
-  fetchExamsScheduleError: false,
-  fetchExamsScheduleErrorMsg: "",
 };
 
 const AppContext = React.createContext();
@@ -51,22 +45,30 @@ const AppProvider = ({ children }) => {
   });
 
   // request
-  // authFetch.interceptors.request.use((config) => {
-  //     config.headers.common['Authorization'] = `Bearer ${state.token}`
-  //     return config
-  // }, (error) => {
-  //     return Promise.reject(error)
-  // })
+  authFetch.interceptors.request.use(
+    (config) => {
+      if (token) {
+        config.headers["Access-Token"] = token;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   // response
-  // authFetch.interceptors.response.use((response) => {
-  //     return response
-  // }, (error) => {
-  //     if (error.response.status === 401) {
-  //         logoutUser()
-  //     }
-  //     return Promise.reject(error)
-  // })
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        logoutSupervisor();
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const addModulesToLocalStorage = ({ modules, token }) => {
     localStorage.setItem("modules", JSON.stringify(modules));
@@ -117,31 +119,6 @@ const AppProvider = ({ children }) => {
     removeModulesFromLocalStorage();
   };
 
-  const fetchExamsSchedule = async () => {
-    dispatch({ type: FETCH_EXAMS_SCHEDULE_BEGIN });
-
-    try {
-      const response = await authFetch.post("/admin/exam/all-exams", {});
-      dispatch({
-        type: FETCH_EXAMS_SCHEDULE_SUCCESS,
-        payload: {
-          exams: response.data.data,
-        },
-      });
-    } catch (error) {
-      let errorMessage = error.message;
-      if (error.response) {
-        errorMessage = error.response.data.message;
-      }
-      dispatch({
-        type: FETCH_EXAMS_SCHEDULE_ERROR,
-        payload: {
-          msg: errorMessage,
-        },
-      });
-    }
-  };
-
   return (
     <AppContext.Provider
       value={{
@@ -149,7 +126,6 @@ const AppProvider = ({ children }) => {
         loginSupervisor: loginSupervisor,
         logoutSupervisor: logoutSupervisor,
         authFetch,
-        fetchExamsSchedule,
       }}
     >
       {children}

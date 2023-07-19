@@ -3,9 +3,6 @@ import {
   LOGIN_SUPERVISOR_SUCCESS,
   LOGIN_SUPERVISOR_ERROR,
   LOGOUT_SUPERVISOR,
-  FETCH_EXAMS_SCHEDULE_BEGIN,
-  FETCH_EXAMS_SCHEDULE_SUCCESS,
-  FETCH_EXAMS_SCHEDULE_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -39,30 +36,6 @@ const reducer = (state, action) => {
       ...initialState,
       module: null,
       token: null,
-    };
-  }
-
-  if (action.type === FETCH_EXAMS_SCHEDULE_BEGIN) {
-    return {
-      ...state,
-      isLoadingExams: true,
-    };
-  }
-
-  if (action.type === FETCH_EXAMS_SCHEDULE_SUCCESS) {
-    return {
-      ...state,
-      isLoadingExams: false,
-      exams: action.payload.exams,
-    };
-  }
-
-  if (action.type === FETCH_EXAMS_SCHEDULE_ERROR) {
-    return {
-      ...state,
-      isLoadingExams: false,
-      fetchExamsScheduleError: false,
-      fetchExamsScheduleErrorMsg: action.payload.msg,
     };
   }
 
