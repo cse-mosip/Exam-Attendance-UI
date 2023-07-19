@@ -126,10 +126,14 @@ const AppProvider = ({ children }) => {
         },
       });
     } catch (error) {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      }
       dispatch({
         type: FETCH_EXAMS_SCHEDULE_ERROR,
         payload: {
-          msg: error.response.data.message,
+          msg: errorMessage,
         },
       });
     }
