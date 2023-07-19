@@ -89,7 +89,7 @@ const rowsPerPage = 7;
 export default function SchedulePage() {
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
-  const { fetchExamsSchedule, exams, isLoading } = useAppContext();
+  const { fetchExamsSchedule, exams, isLoadingExams } = useAppContext();
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - exams.length) : 0;
@@ -130,7 +130,7 @@ export default function SchedulePage() {
               ))}
             </TableRow>
           </TableHead>
-          {isLoading ? (
+          {isLoadingExams ? (
             <TableBody>
               <TableRow>
                 <TableCell colSpan={6}>
