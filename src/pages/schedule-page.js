@@ -130,18 +130,20 @@ export default function SchedulePage() {
               ))}
             </TableRow>
           </TableHead>
-          {isLoading ? (
+          {true ? (
             <TableBody>
               <TableRow>
                 <TableCell colSpan={6}>
-                  <Typography
-                    variant="h5"
-                    component="p"
-                    align="center"
-                    sx={{ marginTop: "2rem" }}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
                   >
                     <CircularProgress />
-                  </Typography>
+                  </Box>
                 </TableCell>
               </TableRow>
             </TableBody>
