@@ -130,7 +130,7 @@ export default function SchedulePage() {
               ))}
             </TableRow>
           </TableHead>
-          {true ? (
+          {isLoading ? (
             <TableBody>
               <TableRow>
                 <TableCell colSpan={6}>
@@ -155,7 +155,7 @@ export default function SchedulePage() {
                     variant="h5"
                     component="p"
                     align="center"
-                    sx={{ marginTop: "2rem" }}
+                    sx={{ padding: "1rem" }}
                   >
                     No exams scheduled
                   </Typography>
