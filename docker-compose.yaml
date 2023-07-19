@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  exam-attendance-ui:
+    build: .
+    container_name: exam-attendance-ui_c
+    ports:
+      - '80:80'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+
