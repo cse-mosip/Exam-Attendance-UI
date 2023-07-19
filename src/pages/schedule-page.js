@@ -210,7 +210,7 @@ export default function SchedulePage() {
                   )
                 : exams
               ).map((row) => (
-                <TableRow key={row.exam_id} onClick={handleTableRowClick}>
+                <TableRow key={row.id} onClick={handleTableRowClick}>
                   <TableCell>
                     <Typography variant="body1" component="p">
                       {row.course.moduleName}
@@ -223,25 +223,25 @@ export default function SchedulePage() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="body1" component="p">
-                      {row.hall.name}
+                      {row.hallName}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body1" component="p">
-                      {row.expected_attendance}
+                      {row.expectedAttendance}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body1" component="p">
                       {
                         //get time in 12 hour format and start time - end time
-                        new Date(row.start_time).toLocaleTimeString("en-US", {
+                        new Date(row.startTime).toLocaleTimeString("en-US", {
                           hour: "numeric",
                           minute: "numeric",
                           hour12: true,
                         }) +
                           " - " +
-                          new Date(row.end_time).toLocaleTimeString("en-US", {
+                          new Date(row.endTime).toLocaleTimeString("en-US", {
                             hour: "numeric",
                             minute: "numeric",
                             hour12: true,
