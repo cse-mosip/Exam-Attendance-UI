@@ -19,6 +19,7 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "success",
       alertText: "Login Successful! Redirecting...",
+      isLoading: false,
     };
   }
 
@@ -28,15 +29,12 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+      isLoading: false,
     };
   }
 
   if (action.type === LOGOUT_SUPERVISOR) {
-    return {
-      ...initialState,
-      module: null,
-      token: null,
-    };
+    return initialState;
   }
 
   throw new Error(`no such action :${action.type}`);
