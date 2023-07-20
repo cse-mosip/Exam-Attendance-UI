@@ -99,7 +99,7 @@ const Report = () => {
           justifyContent="right"
           alignItems="right"
         >
-          <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)}/>
+          <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)} isLoading = {isLoadingAttendance}/>
         </Box>
         <ExamAttendanceTable data={attendance} isLoading = {isLoadingAttendance} isFetchError = {fetchAttendanceError}/>
         <Box
