@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TablePagination from "@mui/material/TablePagination";
 import Paper from '@mui/material/Paper';
-import { IconButton, TableFooter, Typography } from "@mui/material";
+import { CircularProgress, IconButton, TableFooter, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -80,6 +80,8 @@ function TablePaginationActions(props) {
 
 const ExamAttendanceTable = (props) => {
   const rows = props.data;
+  const isFetchError = props.isFetchError;
+  const isLoading = props.isLoading;
   const [page, setpage] = useState(0); 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -108,7 +110,56 @@ const ExamAttendanceTable = (props) => {
                             <TableCell align="right"><Typography variant="h5" component="p">Paper Collected</Typography></TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {isLoading ? (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell colSpan={4}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                padding: "1rem",
+                              }}
+                            >
+                              <CircularProgress />
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ) : isFetchError.isError? (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell colSpan={4}>
+                            <Typography
+                              variant="h5"
+                              component="p"
+                              align="center"
+                              sx={{ padding: "1rem" }}
+                            >
+                            {isFetchError.message}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ): rows.length === 0 ? (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell colSpan={4}>
+                            <Typography
+                              variant="h5"
+                              component="p"
+                              align="center"
+                              sx={{ padding: "1rem" }}
+                            >
+                              No students were registered for this exam.
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    )
+                    :(
+                      <TableBody>
                         {(rowsPerPage > 0
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
@@ -134,6 +185,7 @@ const ExamAttendanceTable = (props) => {
                             </TableRow>
                         )}
                     </TableBody>
+                    )}
                     <TableFooter>
                         <TableRow>
                         <TablePagination

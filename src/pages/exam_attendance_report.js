@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Grid } from '@mui/material';
+import { Box, Typography, Button, Grid, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExamAttendanceTable from '../components/exam_attendance_table';
@@ -30,7 +30,8 @@ const Report = () => {
   const [attendance, setAttendance] = useState([]);
   const [exam, setExam] = useState({});
   const [schedule, setSchedule] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingExam, setIsLoadingExam] = useState(true);
+  const [isLoadingAttendance, setIsLoadingAttendance] = useState(true);
   const [fetchAttendanceError, setFetchAttendanceError] = useState({
     isError: false,
     message: "",
@@ -46,12 +47,12 @@ const Report = () => {
       setExam(response.data.data.course);
       const startTime = response.data.data.startTime;
       setSchedule(startTime.split("T")[0]);
-      console.log({examid})
+      setIsLoadingExam(false);
 
       try {
         const response = await authFetch.get(`/admin/exam-attendance/${examid}`, {});
         setAttendance(response.data.data);
-        setIsLoading(false);
+        setIsLoadingAttendance(false);
       }
       catch (error) {
         let errorMessage = error.message;
@@ -88,7 +89,7 @@ const Report = () => {
               Attendance Monitoring
             </Typography>
             <Typography variant="h4" component="h1" align="center" gutterBottom color="#0170D6">
-              {isLoading ? "" : `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`}
+              {isLoadingExam ? <CircularProgress/> : `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`}
             </Typography>
           </Box>
         </Box>
@@ -100,7 +101,7 @@ const Report = () => {
         >
           <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)}/>
         </Box>
-        <ExamAttendanceTable data={attendance}/>
+        <ExamAttendanceTable data={attendance} isLoading = {isLoadingAttendance} isFetchError = {fetchAttendanceError}/>
         <Box
           display="flex"
           justifyContent="center"
