@@ -4,7 +4,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../components/Navbar';
+import { useAppContext } from "../context/appContext";
+import { useEffect, useState } from 'react';
 
 function createData(name, index, attendance, paperCollected) {
   return { name, index, attendance, paperCollected };
@@ -45,7 +46,32 @@ function getPresentCount() {
 }
 
 const Report = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { authFetch } = useAppContext();
+  const [fetchAttendanceError, setFetchAttendanceError] = useState({
+    isError: false,
+    message: "",
+  });
+  const [attendance, setAttendance] = useState([]);
+
+  const fetchExamsSchedule = async () => {
+
+    try {
+      const response = await authFetch.get("/admin/exam-attendance/23", {});
+      setAttendance(response.data.data);
+    } catch (error) {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      }
+      setFetchAttendanceError({ isError: true, message: errorMessage });
+      //should call error toast after implementing
+    }
+  };
+
+  useEffect(() => {
+    fetchExamsSchedule();
+  }, []);
   return (
     <Box>
       <Box sx={{ margin: '1rem', padding: '1rem' }}>
@@ -72,7 +98,7 @@ const Report = () => {
         >
           <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
         </Box>
-        <ExamAttendanceTable data={data}/>
+        <ExamAttendanceTable data={attendance}/>
         <Box
           display="flex"
           justifyContent="center"

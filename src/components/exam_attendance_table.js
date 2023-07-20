@@ -79,27 +79,14 @@ function TablePaginationActions(props) {
   };
 
 const ExamAttendanceTable = (props) => {
-    const rows = props.data;
-    const [page, setpage] = useState(0);
-    
-
-
-
-    
+  const rows = props.data;
+  const [page, setpage] = useState(0); 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-//   const handleChangePage = (event, newPage) => {
-//     setPage(newPage);
-//   };
-
-//   const handleChangeRowsPerPage = (event) => {
-//     setRowsPerPage(parseInt(event.target.value, 10));
-//     setPage(0);
-//   };
     function handleChangeRowsPerPage(event) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setpage(0);
@@ -127,10 +114,18 @@ const ExamAttendanceTable = (props) => {
                             : rows
                         ).map((row) => (
                             <TableRow key={row.id} >
-                                <TableCell component="th" scope="row"><Typography variant="body1" component="p">{row.name}</Typography></TableCell>
-                                <TableCell align="center"><Typography variant="body1" component="p">{row.index}</Typography></TableCell>
-                                <TableCell align="center"><Typography variant="body1" component="p">{row.attendance}</Typography></TableCell>
-                                <TableCell align="right"><Typography variant="body1" component="p">{row.paperCollected}</Typography></TableCell>
+                                <TableCell component="th" scope="row"><Typography variant="body1" component="p">{row.student_name}</Typography></TableCell>
+                                <TableCell align="center"><Typography variant="body1" component="p">{row.index_no}</Typography></TableCell>
+                                <TableCell align="center">
+                                  <Typography variant="body1" component="p">
+                                    {row.present ? row.marked_time : "-"}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                  <Typography variant="body1" component="p">
+                                    {row.validated ? row.validated_time : "-"}
+                                  </Typography>
+                                </TableCell>
                             </TableRow>
                         ))}
                         {emptyRows > 0 && (
