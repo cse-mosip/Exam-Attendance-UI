@@ -7,38 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAppContext } from "../context/appContext";
 import { useEffect, useState } from 'react';
 
-function createData(name, index, attendance, paperCollected) {
-  return { name, index, attendance, paperCollected };
-}
-
-const data = [
-  createData('Kasun Kasun', "190300A", "08:05 AM", "10.05 AM"),
-  createData('Nimal Sirisena', "190890P", "08:05 AM", ""),
-  createData('Pramila Perera', "190000X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190215X", "", "08:05 AM"),
-  createData('Kasun Kasun', "190300A", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190000X", "08:05 AM", ""),
-  createData('Pramila Perera', "190890P", "", "08:05 AM"),
-  createData('Kamal Induwara', "190300A", "", "08:05 AM"),
-  createData('Kasun Kasun', "190000X", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190215X", "08:05 AM", ""),
-  createData('Pramila Perera', "190000X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190890P", "", "08:05 AM"),
-  createData('Kasun Kasun', "190000X", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190890P", "08:05 AM", ""),
-  createData('Pramila Perera', "190215X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190890P", "", "08:05 AM"),
-];
-
-function getTotalCount() {
+function getTotalCount(data) {
     return data.length;
 }
 
-function getPresentCount() { 
+function getPresentCount(data) { 
     let result = 0;
     for (let i = 0; i < data.length; i++) {
         const row = data[i];
-        if (row.attendance !== "" && row.attendance !== null) {
+        if (row.present) {
             result = result + 1;
         }
     }
@@ -96,7 +73,7 @@ const Report = () => {
           justifyContent="right"
           alignItems="right"
         >
-          <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
+          <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)}/>
         </Box>
         <ExamAttendanceTable data={attendance}/>
         <Box
