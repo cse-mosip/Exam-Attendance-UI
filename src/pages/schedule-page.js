@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
-import {  CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -60,7 +60,7 @@ const columns = [
 export default function SchedulePage() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { authFetch } = useAppContext();
   const [isLoadingExams, setIsLoadingExams] = useState(false);
   const [fetchExamsError, setFetchExamsError] = useState({
@@ -72,9 +72,9 @@ export default function SchedulePage() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - exams.length) : 0;
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
@@ -82,7 +82,8 @@ export default function SchedulePage() {
     };
 
     const handleTableRowClick = () => {
-      navigate("/exam-attendance-report")
+        navigate("/exam-attendance-report")
+    };
 
   const fetchExamsSchedule = async () => {
     setIsLoadingExams(true);
@@ -186,7 +187,11 @@ export default function SchedulePage() {
                   )
                 : exams
               ).map((row) => (
-                <TableRow key={row.id} onClick={handleTableRowClick}>
+                <TableRow
+                    hover
+                    key={row.id}
+                    onClick={handleTableRowClick}
+                >
                   <TableCell>
                     <Typography variant="body1" component="p">
                       {row.course.moduleName}
@@ -237,7 +242,7 @@ export default function SchedulePage() {
           <TableFooter>
             <TableRow>
                 <TablePagination
-                    colSpan={5}
+                    colSpan={3}
                     count={exams.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
