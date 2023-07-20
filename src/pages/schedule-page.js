@@ -1,79 +1,52 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import { CircularProgress, Typography } from "@mui/material";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableFooter from "@mui/material/TableFooter";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import { CircularProgress, Typography } from '@mui/material';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableFooter from '@mui/material/TableFooter';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from "../context/appContext";
 
 function TablePaginationActions(props) {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
+    const theme = useTheme();
+    const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0);
-  };
+    const handleBackButtonClick = (event) => {
+        onPageChange(event, page - 1);
+    };
 
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1);
-  };
+    const handleNextButtonClick = (event) => {
+        onPageChange(event, page + 1);
+    };
 
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        <Typography>{page <= 0 ? "" : page}</Typography>
-      </IconButton>
-      <IconButton disabled={true} aria-label="current page">
-        <Typography>{page + 1}</Typography>
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        <Typography>
-          {page >= Math.ceil(count / rowsPerPage) - 1 ? "" : page + 2}
-        </Typography>
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </Box>
-  );
+    return (
+        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 0}
+                aria-label="previous page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+            </IconButton>
+            <IconButton
+                onClick={handleNextButtonClick}
+                disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+                aria-label="next page"
+            >
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </IconButton>
+        </Box>
+    );
 }
 
 const columns = [
@@ -84,10 +57,9 @@ const columns = [
   { id: "time", label: "Time" },
 ];
 
-const rowsPerPage = 7;
-
 export default function SchedulePage() {
   const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const { authFetch } = useAppContext();
   const [isLoadingExams, setIsLoadingExams] = useState(false);
@@ -104,9 +76,14 @@ export default function SchedulePage() {
     setPage(newPage);
   };
 
-  const handleTableRowClick = () => {
-    navigate("/exam-attendance-report");
-  };
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const handleTableRowClick = () => {
+        navigate("/exam-attendance-report")
+    };
 
   const fetchExamsSchedule = async () => {
     setIsLoadingExams(true);
@@ -210,7 +187,11 @@ export default function SchedulePage() {
                   )
                 : exams
               ).map((row) => (
-                <TableRow key={row.id} onClick={handleTableRowClick}>
+                <TableRow
+                    hover
+                    key={row.id}
+                    onClick={handleTableRowClick}
+                >
                   <TableCell>
                     <Typography variant="body1" component="p">
                       {row.course.moduleName}
@@ -260,16 +241,17 @@ export default function SchedulePage() {
           )}
           <TableFooter>
             <TableRow>
-              <TablePagination
-                colSpan={3}
-                count={exams.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                ActionsComponent={TablePaginationActions}
-                labelRowsPerPage=""
-                rowsPerPageOptions={[]}
-              />
+                <TablePagination
+                    colSpan={3}
+                    count={exams.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    ActionsComponent={TablePaginationActions}
+                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                    labelRowsPerPage={<Typography>Rows per Page: </Typography>}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
             </TableRow>
           </TableFooter>
         </Table>
