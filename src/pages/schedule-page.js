@@ -82,7 +82,7 @@ export default function SchedulePage() {
     };
 
     const handleTableRowClick = (data) => {
-        navigate(`/exam-attendance-report?exam=${data}`)
+      navigate(`/exam-attendance-report/${data}`)
     };
 
   const fetchExamsSchedule = async () => {

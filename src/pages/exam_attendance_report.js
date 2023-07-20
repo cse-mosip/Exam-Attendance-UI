@@ -6,6 +6,7 @@ import AttendanceSummary from '../components/attendance_summary';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from "../context/appContext";
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function getTotalCount(data) {
     return data.length;
@@ -24,30 +25,54 @@ function getPresentCount(data) {
 
 const Report = () => {
   const navigate = useNavigate();
+  const { examid } = useParams();
   const { authFetch } = useAppContext();
+  const [attendance, setAttendance] = useState([]);
+  const [exam, setExam] = useState({});
+  const [schedule, setSchedule] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [fetchAttendanceError, setFetchAttendanceError] = useState({
     isError: false,
     message: "",
   });
-  const [attendance, setAttendance] = useState([]);
+  const [fetchExamError, setFetchExamError] = useState({
+    isError: false,
+    message: "",
+  });
 
-  const fetchExamsSchedule = async () => {
-
+  const fetchExamData = async () => {
     try {
-      const response = await authFetch.get("/admin/exam-attendance/23", {});
-      setAttendance(response.data.data);
+      const response = await authFetch.get(`/admin/exam/get-exam/${examid}`, {});
+      setExam(response.data.data.course);
+      const startTime = response.data.data.startTime;
+      setSchedule(startTime.split("T")[0]);
+      console.log({examid})
+
+      try {
+        const response = await authFetch.get(`/admin/exam-attendance/${examid}`, {});
+        setAttendance(response.data.data);
+        setIsLoading(false);
+      }
+      catch (error) {
+        let errorMessage = error.message;
+        if (error.response) {
+          errorMessage = error.response.data.message;
+        }
+        setFetchAttendanceError({ isError: true, message: errorMessage });
+        //should call error toast after implementing
+      }
     } catch (error) {
       let errorMessage = error.message;
       if (error.response) {
         errorMessage = error.response.data.message;
       }
-      setFetchAttendanceError({ isError: true, message: errorMessage });
+      setFetchExamError({ isError: true, message: errorMessage });
       //should call error toast after implementing
     }
   };
 
   useEffect(() => {
-    fetchExamsSchedule();
+    fetchExamData();
   }, []);
   return (
     <Box>
@@ -63,7 +88,7 @@ const Report = () => {
               Attendance Monitoring
             </Typography>
             <Typography variant="h4" component="h1" align="center" gutterBottom color="#0170D6">
-              Professional Practice - CS1456 : 12/07/2023
+              {isLoading ? "" : `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`}
             </Typography>
           </Box>
         </Box>

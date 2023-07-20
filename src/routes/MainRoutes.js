@@ -18,7 +18,7 @@ const MainRoutes = {
       element: <SchedulePage />
     },
     {
-      path: 'exam-attendance-report',
+      path: 'exam-attendance-report/:examid',
       element: <ExamAttendanceReport />
     },
     {
