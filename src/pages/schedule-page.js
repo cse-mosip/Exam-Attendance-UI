@@ -81,8 +81,8 @@ export default function SchedulePage() {
         setPage(0);
     };
 
-    const handleTableRowClick = () => {
-        navigate("/exam-attendance-report")
+    const handleTableRowClick = (data) => {
+        navigate(`/exam-attendance-report?exam=${data}`)
     };
 
   const fetchExamsSchedule = async () => {
@@ -190,7 +190,7 @@ export default function SchedulePage() {
                 <TableRow
                     hover
                     key={row.id}
-                    onClick={handleTableRowClick}
+                    onClick = {()=>{handleTableRowClick(row.id)}}
                 >
                   <TableCell>
                     <Typography variant="body1" component="p">
