@@ -30,8 +30,8 @@ const Report = () => {
   const [attendance, setAttendance] = useState([]);
   const [exam, setExam] = useState({});
   const [schedule, setSchedule] = useState();
-  const [isLoadingExam, setIsLoadingExam] = useState(true);
-  const [isLoadingAttendance, setIsLoadingAttendance] = useState(true);
+  const [isLoadingExam, setIsLoadingExam] = useState(false);
+  const [isLoadingAttendance, setIsLoadingAttendance] = useState(false);
   const [fetchAttendanceError, setFetchAttendanceError] = useState({
     isError: false,
     message: "",
@@ -42,6 +42,8 @@ const Report = () => {
   });
 
   const fetchExamData = async () => {
+    setIsLoadingAttendance(true);
+    setIsLoadingExam(true);
     try {
       const response = await authFetch.get(`/admin/exam/get-exam/${examid}`, {});
       setExam(response.data.data.course);
