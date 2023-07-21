@@ -1,43 +1,22 @@
-import { Box, Typography, Button, Grid } from '@mui/material';
+import { Box, Typography, Button, Grid, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExamAttendanceTable from '../components/exam_attendance_table';
 import AttendanceSummary from '../components/attendance_summary';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../components/Navbar';
+import { useAppContext } from "../context/appContext";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function createData(name, index, attendance, paperCollected) {
-  return { name, index, attendance, paperCollected };
-}
-
-const data = [
-  createData('Kasun Kasun', "190300A", "08:05 AM", "10.05 AM"),
-  createData('Nimal Sirisena', "190890P", "08:05 AM", ""),
-  createData('Pramila Perera', "190000X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190215X", "", "08:05 AM"),
-  createData('Kasun Kasun', "190300A", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190000X", "08:05 AM", ""),
-  createData('Pramila Perera', "190890P", "", "08:05 AM"),
-  createData('Kamal Induwara', "190300A", "", "08:05 AM"),
-  createData('Kasun Kasun', "190000X", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190215X", "08:05 AM", ""),
-  createData('Pramila Perera', "190000X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190890P", "", "08:05 AM"),
-  createData('Kasun Kasun', "190000X", "08:05 AM", ""),
-  createData('Nimal Sirisena', "190890P", "08:05 AM", ""),
-  createData('Pramila Perera', "190215X", "", "08:05 AM"),
-  createData('Kamal Induwara', "190890P", "", "08:05 AM"),
-];
-
-function getTotalCount() {
+function getTotalCount(data) {
     return data.length;
 }
 
-function getPresentCount() { 
+function getPresentCount(data) { 
     let result = 0;
     for (let i = 0; i < data.length; i++) {
         const row = data[i];
-        if (row.attendance !== "" && row.attendance !== null) {
+        if (row.present) {
             result = result + 1;
         }
     }
@@ -45,7 +24,59 @@ function getPresentCount() {
 }
 
 const Report = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { examid } = useParams();
+  const { authFetch } = useAppContext();
+  const [attendance, setAttendance] = useState([]);
+  const [exam, setExam] = useState({});
+  const [schedule, setSchedule] = useState();
+  const [isLoadingExam, setIsLoadingExam] = useState(false);
+  const [isLoadingAttendance, setIsLoadingAttendance] = useState(false);
+  const [fetchAttendanceError, setFetchAttendanceError] = useState({
+    isError: false,
+    message: "",
+  });
+  const [fetchExamError, setFetchExamError] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const fetchExamData = async () => {
+    setIsLoadingAttendance(true);
+    setIsLoadingExam(true);
+    try {
+      const response = await authFetch.get(`/admin/exam/get-exam/${examid}`, {});
+      setExam(response.data.data.course);
+      const startTime = response.data.data.startTime;
+      setSchedule(startTime.split("T")[0]);
+      setIsLoadingExam(false);
+
+      try {
+        const response = await authFetch.get(`/admin/exam-attendance/${examid}`, {});
+        setAttendance(response.data.data);
+        setIsLoadingAttendance(false);
+      }
+      catch (error) {
+        let errorMessage = error.message;
+        if (error.response) {
+          errorMessage = error.response.data.message;
+        }
+        setFetchAttendanceError({ isError: true, message: errorMessage });
+        //should call error toast after implementing
+      }
+    } catch (error) {
+      let errorMessage = error.message;
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      }
+      setFetchExamError({ isError: true, message: errorMessage });
+      //should call error toast after implementing
+    }
+  };
+
+  useEffect(() => {
+    fetchExamData();
+  }, []);
   return (
     <Box>
       <Box sx={{ margin: '1rem', padding: '1rem' }}>
@@ -60,7 +91,7 @@ const Report = () => {
               Attendance Monitoring
             </Typography>
             <Typography variant="h4" component="h1" align="center" gutterBottom color="#0170D6">
-              Professional Practice - CS1456 : 12/07/2023
+              {isLoadingExam ? <CircularProgress/> : `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`}
             </Typography>
           </Box>
         </Box>
@@ -70,9 +101,9 @@ const Report = () => {
           justifyContent="right"
           alignItems="right"
         >
-          <AttendanceSummary totalCount={getTotalCount()} presentCount={getPresentCount()}/>
+          <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)} isLoading = {isLoadingAttendance}/>
         </Box>
-        <ExamAttendanceTable data={data}/>
+        <ExamAttendanceTable data={attendance} isLoading = {isLoadingAttendance} isFetchError = {fetchAttendanceError}/>
         <Box
           display="flex"
           justifyContent="center"
