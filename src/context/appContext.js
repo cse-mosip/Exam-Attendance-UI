@@ -9,7 +9,7 @@ import {
 } from "./actions";
 
 import reducer from "./reducer";
-import { errorToast } from "../components/toast";
+import { errorToast, successToast } from "../components/toast";
 
 const modules = localStorage.getItem("modules");
 const token = localStorage.getItem("token");
@@ -55,8 +55,9 @@ const AppProvider = ({ children }) => {
       return response;
     },
     (error) => {
-      if (error.response && error.response.status === 401) {
+      if (error.response && error.response.status === 403) {
         logoutSupervisor();
+        errorToast("Session expired, Refresh and login again");
       }
       return Promise.reject(error);
     }
@@ -86,6 +87,7 @@ const AppProvider = ({ children }) => {
         addTokenToLocalStorage({
           token: data.access_token,
         });
+        successToast("Login successful");
       } else {
         errorToast("Login failed");
       }
