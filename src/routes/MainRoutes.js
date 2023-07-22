@@ -4,6 +4,7 @@ import ErrorPage from '../pages/error-page';
 import ExamAttendanceReport from '../pages/exam_attendance_report';
 import AttendanceMarkingPage from '../pages/attendance-marking-page';
 import SupervisorLoginPage from '../pages/supervisor-login-page';
+import AuthWrapper from "../components/auth-wrapper";
 
 const MainRoutes = {
   path: '/',
@@ -15,11 +16,11 @@ const MainRoutes = {
     },
     {
       path: 'schedule',
-      element: <SchedulePage />
+      element: <AuthWrapper><SchedulePage /></AuthWrapper>
     },
     {
       path: 'exam-attendance-report/:examid',
-      element: <ExamAttendanceReport />
+      element: <AuthWrapper><ExamAttendanceReport /></AuthWrapper>
     },
     {
       path:"*",
@@ -27,7 +28,7 @@ const MainRoutes = {
     },
     {
       path: "attendance-marking",
-      element: <AttendanceMarkingPage />
+      element: <AuthWrapper><AttendanceMarkingPage /></AuthWrapper>
     }
   ]
 };
