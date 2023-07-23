@@ -1,18 +1,28 @@
 import { Typography, Button } from "@mui/material";
 import { Box } from "@mui/system";
+import { styled } from "@mui/material/styles";
+import ErrorImage from "../assets/error404.png";
+import { useNavigate } from "react-router-dom";
 
 export default function ErrorPage() {
+  const navigate = useNavigate();
 
   return (
     <Box style={containerStyle}>
-      <Box sx={formContainerStyle} component="form" Validate>
-        <Typography variant="h1" style={headingFormStyle404}>
-          404
-        </Typography>
-        <Typography variant="h3" style={headingFormStyle}>
-          Page Not Found
-        </Typography>
-      </Box>
+      <img src={ErrorImage} alt="Error 404" width={400} />
+      <Typography variant="h3" style={headingFormStyle}>
+        Page Not Found
+      </Typography>
+      <Typography variant="h6" style={contentFormStyle}>
+        The page you're looking for does not seem to exist
+      </Typography>
+      <BackButton
+        onClick={() => {
+          navigate("/schedule");
+        }}
+      >
+        Go to Home
+      </BackButton>
     </Box>
   );
 }
@@ -23,40 +33,36 @@ const containerStyle = {
   textAlign: "center",
 };
 
-const formContainerStyle = {
-  borderRadius: 5,
-  width: "30%",
-  padding: "1%",
-  alignItems: "center",
-  justifyContent: "center",
-  display: "flex",
-  flexDirection: "column",
-  margin: "0 auto",
-  backgroundColor: "#F6F6F6",
-  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-};
-
 const headingFormStyle = {
   textAlign: "center",
-  marginTop: "5%",
-  color: "red",
+  marginTop: "1%",
+  color: "#000000",
   letterSpacing: "1px",
-  fontSize: 32,
+  fontSize: 25,
   fontFamily: "Alata, sans-serif",
-  fontWeight: 450,
+  fontWeight: 600,
 };
 
-const headingFormStyle404 = {
-  textAlign: "center",
-  marginTop: "5%",
-  color: "red",
-  letterSpacing: "1px",
-  fontSize: 45,
+const contentFormStyle = {
+  color: "#616161",
+  marginTop: 5,
   fontFamily: "Alata, sans-serif",
-  fontWeight: 800,
 };
 
-const stopButtonStyle = {
-  mt: 3,
-  mb: 2,
-};
+const BackButton = styled(Button)({
+  textTransform: "none",
+  fontSize: 14,
+  marginTop: "1%",
+  padding: "6px 12px",
+  border: "1px solid",
+  lineHeight: 1.5,
+  color: "#fff",
+  backgroundColor: "#00417D",
+  borderColor: "#00417D",
+  fontFamily: "Alata, sans-serif",
+  "&:hover": {
+    backgroundColor: "#0d47a1",
+    borderColor: "#0d47a1",
+    boxShadow: "none",
+  },
+});
