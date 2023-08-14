@@ -2,19 +2,34 @@ import { Box, Typography, Button } from "@mui/material";
 import FingerprintImg from "../images/fp_3.png";
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { socket } from "../utils/socket"
 
 const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
-  const { loginSupervisor } = useAppContext();
+  const { loginSupervisor, loginStudent } = useAppContext();
   const navigate = useNavigate();
 
   // TODO - call this when fingerprint scanning finished
-  const handleLogIn = () => {
-    const fingerprint = "";
+  const handleLogIn = (fingerprint) => {
     // TODO - Get fingerprint from the input scanner device
     if (!isStudent) {
       loginSupervisor(fingerprint);
+    } else {
+      loginStudent(fingerprint);
     }
   };
+
+  useEffect(() => {
+    socket.on("fingerprintData", async (fingerprintData) => {
+      handleLogIn(fingerprintData)
+    });
+
+    requestFingerprint()
+  }, []);
+
+  async function requestFingerprint() {
+    socket.emit("fingerprint", 3);
+  }
 
   return (
     <Box style={formContainerStyle}>
@@ -46,6 +61,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
     </Box>
   );
 };
+
 export default FingerprintScanner;
 
 const headingStyle = {

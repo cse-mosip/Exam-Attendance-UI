@@ -6,6 +6,9 @@ import {
   LOGIN_SUPERVISOR_SUCCESS,
   LOGIN_SUPERVISOR_ERROR,
   LOGOUT_SUPERVISOR,
+  LOGIN_STUDENT_BEGIN,
+  LOGIN_STUDENT_SUCCESS,
+  LOGIN_STUDENT_ERROR,
 } from "./actions";
 
 import reducer from "./reducer";
@@ -109,6 +112,31 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const loginStudent = async (logInData) => {
+    dispatch({ type: LOGIN_STUDENT_BEGIN });
+
+    try {
+      const { data } = await authFetch.post("/student/exam-attendance-attendance/mark-exam-attendance", logInData);
+
+      // TODO
+      if (true) {
+        dispatch({
+          type: LOGIN_STUDENT_SUCCESS,
+        });
+        successToast("Login successful");
+      } else {
+        errorToast("Login failed");
+      }
+    } catch (error) {
+      dispatch({
+        type: LOGIN_STUDENT_ERROR,
+        payload: {
+          msg: error.response.data.msg,
+        },
+      });
+    }
+  }
+
   const logoutSupervisor = () => {
     dispatch({ type: LOGOUT_SUPERVISOR });
     removeTokenFromLocalStorage();
@@ -120,6 +148,7 @@ const AppProvider = ({ children }) => {
         ...state,
         loginSupervisor,
         logoutSupervisor,
+        loginStudent,
         authFetch,
       }}
     >
