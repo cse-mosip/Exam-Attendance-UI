@@ -2,6 +2,23 @@
 
 This is the front end app for the exam attendance.
 
+# Pre-requisites
+Please create a .env file in the root directory and refer the env sample file to add the required environment variables.
+
+# Installation and Setup Instructions
+
+Installation:
+
+`npm install`
+
+To Start Server:
+
+`npm start`
+
+# Reflection
+
+This is a group project completed for the implementation of MOSIP platform developed for the Professional Practise Module.
+
 # Project Screen Shot(s)
 
 ### Supervisor login page
@@ -33,17 +50,3 @@ Once supervisor press `Start Attending` on `Attendance Monitoring` page. This wi
 
 If a student prefers to use an index instead of a fingerprint, this page allows that option.
 ![Alt text](./src/images/image-5.png)
-
-# Installation and Setup Instructions
-
-Installation:
-
-`npm install`
-
-To Start Server:
-
-`npm start`
-
-# Reflection
-
-This is a group project completed for the implementation of MOSIP platform developed for the Professional Practise Module.

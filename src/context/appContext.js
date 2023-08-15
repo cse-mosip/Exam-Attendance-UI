@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
   // axios and add Access-Token to header
 
   const authFetch = axios.create({
-    baseURL: "http://20.235.163.35:8080",
+    baseURL: process.env.REACT_APP_BACKEND_URL,
   });
 
   // request
