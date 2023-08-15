@@ -8,7 +8,7 @@ import AuthWrapper from "../components/auth-wrapper";
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout />,
+  element: <AuthWrapper><SchedulePage/></AuthWrapper>,
   children: [
     {
       path: '/login',
