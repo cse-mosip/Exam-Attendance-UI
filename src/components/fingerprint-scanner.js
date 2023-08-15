@@ -38,7 +38,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
       </Typography>
       <img
         src={FingerprintImg}
-        alt="fingerprint image"
+        alt="fingerprint"
         style={{ margin: "10%" }}
       />
       {isStudent && (
