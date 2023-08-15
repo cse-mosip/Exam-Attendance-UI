@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { socket } from "../utils/socket"
 
-const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
+const FingerprintScanner = ({ isStudent, setIsBioLogin, examId }) => {
   const { loginSupervisor, loginStudent } = useAppContext();
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin }) => {
           variant="contained"
           color="error"
           onClick={() => {
-            navigate("/exam-attendance-report");
+            navigate(`/exam-attendance-report/${examId}`);
           }}
         >
           STOP ATTENDING

@@ -3,7 +3,7 @@ import { Button, TextField, Link, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CustomLoginPage({handleFlip, setOpen}) {
+export default function CustomLoginPage({handleFlip, setOpen, examId}) {
   const [indexNo, setIndexNo] = useState(null);
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export default function CustomLoginPage({handleFlip, setOpen}) {
           SUBMIT
         </Button>
 
-        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle} onClick={()=>{navigate("/exam-attendance-report")}}>
+        <Button size="lg" color="error" variant="contained" sx={stopButtonStyle} onClick={()=>{navigate(`/exam-attendance-report/${examId}`)}}>
           STOP ATTENDING
         </Button><br></br>
 
