@@ -116,7 +116,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_STUDENT_BEGIN });
 
     try {
-      const { data } = await authFetch.post("/student/exam-attendance-attendance/mark-exam-attendance", logInData);
+      const { data } = await authFetch.post(
+        "/student/exam-attendance-attendance/mark-exam-attendance",
+        logInData
+      );
 
       // TODO
       if (true) {
@@ -135,11 +138,12 @@ const AppProvider = ({ children }) => {
         },
       });
     }
-  }
+  };
 
   const logoutSupervisor = () => {
-    dispatch({ type: LOGOUT_SUPERVISOR });
+    initialState.token = null;
     removeTokenFromLocalStorage();
+    dispatch({ type: LOGOUT_SUPERVISOR });
   };
 
   return (

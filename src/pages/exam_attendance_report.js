@@ -1,26 +1,26 @@
-import { Box, Typography, Button, Grid, CircularProgress } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ExamAttendanceTable from '../components/exam_attendance_table';
-import AttendanceSummary from '../components/attendance_summary';
-import { useNavigate } from 'react-router-dom';
+import { Box, Typography, Button, Grid, CircularProgress } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ExamAttendanceTable from "../components/exam_attendance_table";
+import AttendanceSummary from "../components/attendance_summary";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/appContext";
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function getTotalCount(data) {
-    return data.length;
+  return data.length;
 }
 
-function getPresentCount(data) { 
-    let result = 0;
-    for (let i = 0; i < data.length; i++) {
-        const row = data[i];
-        if (row.present) {
-            result = result + 1;
-        }
+function getPresentCount(data) {
+  let result = 0;
+  for (let i = 0; i < data.length; i++) {
+    const row = data[i];
+    if (row.present) {
+      result = result + 1;
     }
-    return result;
+  }
+  return result;
 }
 
 const Report = () => {
@@ -45,18 +45,23 @@ const Report = () => {
     setIsLoadingAttendance(true);
     setIsLoadingExam(true);
     try {
-      const response = await authFetch.get(`/admin/exam/get-exam/${examid}`, {});
+      const response = await authFetch.get(
+        `/admin/exam/get-exam/${examid}`,
+        {}
+      );
       setExam(response.data.data.course);
       const startTime = response.data.data.startTime;
       setSchedule(startTime.split("T")[0]);
       setIsLoadingExam(false);
 
       try {
-        const response = await authFetch.get(`/admin/exam-attendance/${examid}`, {});
+        const response = await authFetch.get(
+          `/admin/exam-attendance/${examid}`,
+          {}
+        );
         setAttendance(response.data.data);
         setIsLoadingAttendance(false);
-      }
-      catch (error) {
+      } catch (error) {
         let errorMessage = error.message;
         if (error.response) {
           errorMessage = error.response.data.message;
@@ -79,36 +84,56 @@ const Report = () => {
   }, []);
   return (
     <Box>
-      <Box sx={{ margin: '1rem', padding: '1rem' }}>
+      <Box sx={{ margin: "1rem", padding: "1rem" }}>
         <Box display="flex" alignItems="center">
           <Box>
-            <IconButton aria-label="delete" onClick={() => { navigate("/schedule") }}>
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <ArrowBackIosIcon />
             </IconButton>
           </Box>
-          <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
-            <Typography variant="h1" component="h1" gutterBottom color="#0170D6">
+          <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+            <Typography
+              variant="h1"
+              component="h1"
+              gutterBottom
+              color="#0170D6"
+            >
               Attendance Monitoring
             </Typography>
-            <Typography variant="h4" component="h1" align="center" gutterBottom color="#0170D6">
-              {isLoadingExam ? <CircularProgress/> : `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`}
+            <Typography
+              variant="h4"
+              component="h1"
+              align="center"
+              gutterBottom
+              color="#0170D6"
+            >
+              {isLoadingExam ? (
+                <CircularProgress />
+              ) : (
+                `${exam.moduleName} - ${exam.moduleCode} : ${schedule}`
+              )}
             </Typography>
           </Box>
         </Box>
 
-        <Box
-          display="flex"
-          justifyContent="right"
-          alignItems="right"
-        >
-          <AttendanceSummary totalCount={getTotalCount(attendance)} presentCount={getPresentCount(attendance)} isLoading = {isLoadingAttendance}/>
+        <Box display="flex" justifyContent="right" alignItems="right">
+          <AttendanceSummary
+            totalCount={getTotalCount(attendance)}
+            presentCount={getPresentCount(attendance)}
+            isLoading={isLoadingAttendance}
+          />
         </Box>
-        <ExamAttendanceTable data={attendance} isLoading = {isLoadingAttendance} isFetchError = {fetchAttendanceError}/>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
+        <ExamAttendanceTable
+          data={attendance}
+          isLoading={isLoadingAttendance}
+          isFetchError={fetchAttendanceError}
+        />
+        <Box display="flex" justifyContent="center" alignItems="center">
           <Button
             variant="contained"
             sx={{
@@ -116,7 +141,9 @@ const Report = () => {
               width: "300px",
               height: "40px",
             }}
-            onClick = {()=>{navigate("/attendance-marking")}}
+            onClick={() => {
+              navigate("/attendance-marking");
+            }}
           >
             Start Attending
           </Button>
@@ -124,6 +151,6 @@ const Report = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default Report;

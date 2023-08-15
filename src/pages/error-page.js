@@ -18,7 +18,7 @@ export default function ErrorPage() {
       </Typography>
       <BackButton
         onClick={() => {
-          navigate("/schedule");
+          navigate("/");
         }}
       >
         Go to Home

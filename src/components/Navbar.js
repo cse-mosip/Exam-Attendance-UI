@@ -8,16 +8,13 @@ import { useAppContext } from "../context/appContext";
 
 function NavBar() {
   const location = useLocation();
-  const currentPath = location.pathname;
-  const isLoginPage = currentPath === "/login";
 
   const navigate = useNavigate();
 
-  const { logoutSupervisor } = useAppContext();
+  const { logoutSupervisor, token } = useAppContext();
 
   const handleLogout = () => {
     logoutSupervisor();
-    navigate("/login");
   };
 
   return (
@@ -31,7 +28,7 @@ function NavBar() {
             color="inherit"
             aria-label="logo"
             sx={{ marginLeft: "30px" }}
-            onClick={()=>navigate("/schedule")}
+            onClick={() => navigate("/")}
           >
             <img
               src="../LogoMain1.png"
@@ -39,7 +36,7 @@ function NavBar() {
               style={{ height: "45px", marginLeft: "30px" }}
             />
           </IconButton>
-          {!isLoginPage && (
+          {token && (
             <Button
               variant="contained"
               sx={{ height: "35px" }}
