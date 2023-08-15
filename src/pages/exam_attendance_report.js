@@ -142,7 +142,11 @@ const Report = () => {
               height: "40px",
             }}
             onClick={() => {
-              navigate("/attendance-marking");
+              navigate("/attendance-marking", {
+                state:{
+                  examId:examid
+                }
+              });
             }}
           >
             Start Attending

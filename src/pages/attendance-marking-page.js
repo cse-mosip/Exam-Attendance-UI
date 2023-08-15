@@ -5,6 +5,7 @@ import CustomLoginPage from "./custom-login-page";
 import FingerprintScanner from "../components/fingerprint-scanner";
 import StudentDetailsModal from "../components/student-details-modal";
 import profileImage from "../assets/Yasiru.jpg"
+import { useLocation } from "react-router-dom";
 
 export default function AttendanceMarkingPage({isStudent}) {
 
@@ -23,6 +24,8 @@ export default function AttendanceMarkingPage({isStudent}) {
       index:"190331A",
       profilePicture:profileImage
   }
+
+  const location = useLocation();
   
   return (
     <Box style={containerStyle}>
@@ -30,9 +33,9 @@ export default function AttendanceMarkingPage({isStudent}) {
         Attendance Marking
       </Typography>
         {!isBioLogin ? (
-          <CustomLoginPage handleFlip={handleFlip} setOpen={setOpen}/>
+          <CustomLoginPage handleFlip={handleFlip} setOpen={setOpen} examId={location.state.examId}/>
         ) : (
-          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip} setOpen={setOpen}/>
+          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip} setOpen={setOpen} examId={location.state.examId}/>
         )}
       <StudentDetailsModal person={person} open={open} onClose={onModalClose}/>
     </Box>
