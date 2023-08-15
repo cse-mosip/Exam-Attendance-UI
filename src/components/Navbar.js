@@ -31,6 +31,7 @@ function NavBar() {
             color="inherit"
             aria-label="logo"
             sx={{ marginLeft: "30px" }}
+            onClick={()=>navigate("/schedule")}
           >
             <img
               src="../LogoMain1.png"
