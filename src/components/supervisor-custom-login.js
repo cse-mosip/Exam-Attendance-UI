@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 
 function SupervisorCustomLoginComponent({ setIsBioLogin }) {
   const [showPassword, setShowPassword] = React.useState(false);
-  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -24,7 +23,7 @@ function SupervisorCustomLoginComponent({ setIsBioLogin }) {
     event.preventDefault();
   };
 
-  const { loginSupervisor, isLoading, token } = useAppContext();
+  const { loginSupervisor, isLoading } = useAppContext();
 
   const initialValues = {
     email: "",
@@ -43,13 +42,6 @@ function SupervisorCustomLoginComponent({ setIsBioLogin }) {
       grant_type: "password",
     });
   };
-
-  useEffect(() => {
-    if (!isLoading && token != null) {
-      navigate("/schedule");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, token]);
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
