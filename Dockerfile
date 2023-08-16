@@ -2,6 +2,7 @@ FROM node:alpine as build
 WORKDIR /app
 COPY package.json .
 RUN npm install
+ENV REACT_APP_BACKEND_URL=http://20.235.163.35:8080
 COPY . .
 RUN npm run build
 
