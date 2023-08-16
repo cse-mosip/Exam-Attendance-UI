@@ -2,29 +2,40 @@ import { Box, Typography, Button } from "@mui/material";
 import FingerprintImg from "../images/fp_3.png";
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { socket } from "../utils/socket"
 
-const FingerprintScanner = ({ isStudent, setIsBioLogin, examId }) => {
+const FingerprintScanner = ({ isStudent, setIsBioLogin, examId, setPerson1, setMessage1, setOpen }) => {
   const { loginSupervisor, loginStudent } = useAppContext();
   const navigate = useNavigate();
+  console.log(setPerson1)
 
-  // TODO - call this when fingerprint scanning finished
   const handleLogIn = (fingerprint) => {
-    // TODO - Get fingerprint from the input scanner device
+    const typedArray = new Uint8Array(fingerprint['1']['buffer']);
+    const temp = [...typedArray];
+    const fingerData = {fingerprint:{bioSubType:fingerprint['1']['bioSubType'], buffer:{data: temp}}, eventId:Number(examId)}
     if (!isStudent) {
-      loginSupervisor(fingerprint);
+      loginSupervisor(fingerData);
+      console.log("Here");
     } else {
-      loginStudent(fingerprint);
+      const data = loginStudent(fingerData);
+      console.log(data);
+      setPerson1(data.person);
+      setMessage1(data.message);
+      setOpen(true);
     }
   };
 
   useEffect(() => {
     socket.on("fingerprintData", async (fingerprintData) => {
-      handleLogIn(fingerprintData)
+      if (fingerprintData.success === undefined){
+        handleLogIn(fingerprintData)
+
+      }else{
+        console.log("fingerprint not successfull")
+      }
     });
 
-    requestFingerprint()
   }, []);
 
   async function requestFingerprint() {
@@ -41,6 +52,17 @@ const FingerprintScanner = ({ isStudent, setIsBioLogin, examId }) => {
         alt="fingerprint"
         style={{ margin: "10%" }}
       />
+      {isStudent && (
+        <Button
+          variant="contained"
+          sx={submitButtonStyle}
+          onClick={
+            requestFingerprint
+          }
+        >
+          SCAN FINGERPRINT
+        </Button>
+      )}
       {isStudent && (
         <Button
           variant="contained"
@@ -85,4 +107,11 @@ const formContainerStyle = {
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
   backgroundColor: "#FFFFFF",
   borderRadius: "3%",
+};
+
+const submitButtonStyle = {
+  mt: 3,
+  mb: 2,
+  margin: 2,
+  width: "75%",
 };

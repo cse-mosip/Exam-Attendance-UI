@@ -117,26 +117,34 @@ const AppProvider = ({ children }) => {
 
     try {
       const { data } = await authFetch.post(
-        "/student/exam-attendance-attendance/mark-exam-attendance",
-        logInData
+        "/student/exam-attendance/mark-exam-attendance",
+          logInData
       );
-
+      return {
+        message:null,
+        person:data.data
+      };
       // TODO
-      if (true) {
-        dispatch({
-          type: LOGIN_STUDENT_SUCCESS,
-        });
-        successToast("Login successful");
-      } else {
-        errorToast("Login failed");
-      }
+      // if (true) {
+      //   dispatch({
+      //     type: LOGIN_STUDENT_SUCCESS,
+      //   });
+      //   successToast("Login successful");
+      // } else {
+      //   errorToast("Login failed");
+      // }
     } catch (error) {
+      // errorToast("Login failed");
       dispatch({
         type: LOGIN_STUDENT_ERROR,
         payload: {
           msg: error.response.data.msg,
         },
       });
+      return {
+        message:"Login Failed!",
+        person:null
+      };
     }
   };
 
