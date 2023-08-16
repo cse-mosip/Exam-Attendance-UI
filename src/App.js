@@ -12,7 +12,7 @@ import AttendanceMarkingPage from "./pages/attendance-marking-page";
 
 const App = () => (
   <ThemeCustomization>
-    <BrowserRouter>
+    <BrowserRouter basename={'/frontend-service/exam-attendance'}>
       <NavBar />
       <ToastContainer />
       <Routes>

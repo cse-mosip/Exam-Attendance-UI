@@ -2,6 +2,7 @@
   "name": "exam-attendace-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/frontend-service/exam-attendance",
   "dependencies": {
     "@ant-design/colors": "^7.0.0",
     "@emotion/react": "^11.11.1",
