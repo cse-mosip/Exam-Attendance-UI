@@ -18,15 +18,22 @@ export default function AttendanceMarkingPage({isStudent}) {
   const handleFlip = () => {
     setIsBioLogin(!isBioLogin)
   }
-
-  const person = {
-      name:"Yasiru Lakshan",
-      index:"190331A",
-      profilePicture:profileImage
-  }
+  const [person, setPerson] = useState(null);
+  const [message, setMessage] = useState(null);
+  // const person = {
+  //     name:"Yasiru Lakshan",
+  //     index:"190331A",
+  //     profilePicture:profileImage
+  // }
+  console.log(person, message)
 
   const location = useLocation();
-  
+  const setPersonFunc = (param) => {
+    setPerson(param);
+  }
+  const setMessageFunc = (param) => {
+    setMessage(param);
+  }
   return (
     <Box style={containerStyle}>
       <Typography variant="h3" style={headingStyle}>
@@ -35,9 +42,9 @@ export default function AttendanceMarkingPage({isStudent}) {
         {!isBioLogin ? (
           <CustomLoginPage handleFlip={handleFlip} setOpen={setOpen} examId={location.state.examId}/>
         ) : (
-          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip} setOpen={setOpen} examId={location.state.examId}/>
+          <FingerprintScanner isStudent={true} setIsBioLogin={handleFlip} setOpen={(state)=>{setOpen(state)}} examId={location.state.examId} setPerson1={setPersonFunc} setMessage1={setMessageFunc}/>
         )}
-      <StudentDetailsModal person={person} open={open} onClose={onModalClose}/>
+      <StudentDetailsModal message={message} open={open} onClose={onModalClose} person={person}/>
     </Box>
     
   );

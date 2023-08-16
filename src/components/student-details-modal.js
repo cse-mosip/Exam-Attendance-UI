@@ -73,7 +73,7 @@ const StudentDetailsModal = ({ person, open, onClose, message }) => {
             />
             <div sx={detailsContainerStyles}>
               <Typography variant="h5">{person.name}</Typography>
-              <Typography variant="h6">{person.index}</Typography>
+              <Typography variant="h6">{person.index_number}</Typography>
             </div>
           </Box>
         )}
