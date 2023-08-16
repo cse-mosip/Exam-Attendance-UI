@@ -30,6 +30,7 @@ jobs:
               shell: bash
               env:
                   ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
+                  REACT_APP_BACKEND_URL: http://localhost:3001
               run: |
                   echo "$ENV_PRODUCTION" > .env.production
 
